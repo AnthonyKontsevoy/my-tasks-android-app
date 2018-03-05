@@ -1,4 +1,4 @@
-package com.anthonyestacado.mytasks;
+package com.anthonyestacado.mytasks.tasksview;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.anthonyestacado.mytasks.R;
 
 public class TasksActivity extends AppCompatActivity {
 
