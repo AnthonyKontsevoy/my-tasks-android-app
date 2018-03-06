@@ -1,4 +1,4 @@
-package com.anthonyestacado.mytasks.tasksview;
+package com.anthonyestacado.mytasks.tasksview.fragments.usertaskeditor;
 
 /**
  * Created by Anthony Kontsevoy on 05.03.2018.

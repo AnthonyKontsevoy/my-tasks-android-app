@@ -1,4 +1,4 @@
-package com.anthonyestacado.mytasks.tasksview;
+package com.anthonyestacado.mytasks.tasksview.fragments;
 
 import com.anthonyestacado.mytasks.model.UserTask;
 

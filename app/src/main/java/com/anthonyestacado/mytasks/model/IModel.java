@@ -11,6 +11,7 @@ public interface IModel {
     int createTask(String title, String description, boolean status, String dueDate, int repeatMode);
     int editTask(int userTaskID);
     int deleteTask(int userTaskID);
+    UserTask getUserTaskByID(int ID);
     List<UserTask> getTasks(int selectionModeID);
     int authenticateUser(String username, String password);
     int changeUserTaskStatus(boolean status);

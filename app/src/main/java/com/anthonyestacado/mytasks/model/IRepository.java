@@ -9,7 +9,9 @@ import java.util.List;
 public interface IRepository {
 
     int saveUserTask(UserTask userTask);
+    int updateUserTask(UserTask userTask);
     int deleteUserTask(UserTask userTask);
-    int getUserTasks(int selection_mode);
+    UserTask getUserTaskByID(int ID);
+    List<UserTask> getUserTasks(int selection_mode);
     List<String> validateUserCredentials(String username, String password);
 }
