@@ -10,8 +10,8 @@ public interface IRepository {
 
     int saveUserTask(UserTask userTask);
     int updateUserTask(UserTask userTask);
-    int deleteUserTask(UserTask userTask);
-    UserTask getUserTaskByID(int ID);
+    int deleteUserTask(int userTaskID);
+    UserTask getUserTaskByID(int userTaskID);
     List<UserTask> getUserTasks(int selection_mode);
     List<String> validateUserCredentials(String username, String password);
 }

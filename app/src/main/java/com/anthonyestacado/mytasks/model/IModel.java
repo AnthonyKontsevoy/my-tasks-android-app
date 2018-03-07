@@ -8,12 +8,12 @@ import java.util.List;
 
 public interface IModel {
 
-    int createTask(String title, String description, boolean status, String dueDate, int repeatMode);
+    int createTask(String title, String description, int status, String dueDate, String repeatMode);
     int editTask(int userTaskID);
     int deleteTask(int userTaskID);
-    UserTask getUserTaskByID(int ID);
+    UserTask getUserTaskByID(int userTaskID);
     List<UserTask> getTasks(int selectionModeID);
     int authenticateUser(String username, String password);
-    int changeUserTaskStatus(boolean status);
+    int changeUserTaskStatus(int UserTaskID, int status);
     int setNotificationForTask(int userTaskID);
 }

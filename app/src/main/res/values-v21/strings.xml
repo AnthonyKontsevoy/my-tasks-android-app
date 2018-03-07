@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nav_all_tasks">All tasks</string>
+    <string name="nav_tasks_in_progress">In progress</string>
+    <string name="nav_done_tasks">Done</string>
+    <string name="nav_agenda">Agenda</string>
+    <string name="nav_settings_section">Settings</string>
+    <string name="nav_change_user">Change user</string>
+    <string name="nav_settings">Settings</string>
+</resources>

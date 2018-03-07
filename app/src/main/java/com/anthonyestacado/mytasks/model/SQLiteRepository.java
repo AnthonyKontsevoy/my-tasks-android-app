@@ -49,7 +49,7 @@ public class SQLiteRepository  implements IRepository{
 
         getDataForInsert(userTask);
 
-        return database.getReadableDatabase().update(SQLiteDBHelper.TABLE_TASKS, valuesForDB, SQLiteDBHelper.KEY_TASK_ID + " = ?", new String[] { String.valueOf(userTask.getTaskID())});
+        return database.getReadableDatabase().update(SQLiteDBHelper.TABLE_TASKS, valuesForDB, SQLiteDBHelper.KEY_TASK_ID + " = ?", new String[] { String.valueOf(userTask.getTaskID()) } );
     }
 
     //This method is called to initialize connection to the database and to prepare data for insertion
@@ -68,18 +68,18 @@ public class SQLiteRepository  implements IRepository{
 
     //This method is called when you need to delete a specific task from the database
     @Override
-    public int deleteUserTask(UserTask userTask) {
+    public int deleteUserTask(int userTaskID) {
 
-        database.getWritableDatabase().delete(SQLiteDBHelper.TABLE_TASKS, SQLiteDBHelper.KEY_TASK_ID + " = ?", new String[] { String.valueOf(userTask.getTaskID()) });
+        database.getWritableDatabase().delete(SQLiteDBHelper.TABLE_TASKS, SQLiteDBHelper.KEY_TASK_ID + " = ?", new String[] { String.valueOf(userTaskID) } );
         database.close();
 
         return 0;
     }
 
     @Override
-    public UserTask getUserTaskByID(int ID) {
+    public UserTask getUserTaskByID(int userTaskID) {
 
-        String selectQuery = "SELECT * FROM " + SQLiteDBHelper.TABLE_TASKS + " WHERE " + SQLiteDBHelper.KEY_TASK_ID + " =  ?" + String.valueOf(ID);
+        String selectQuery = "SELECT * FROM " + SQLiteDBHelper.TABLE_TASKS + " WHERE " + SQLiteDBHelper.KEY_TASK_ID + " =  ?" + String.valueOf(userTaskID);
 
         Cursor cursor = database.getWritableDatabase().rawQuery(selectQuery, null);
         if (cursor != null) {

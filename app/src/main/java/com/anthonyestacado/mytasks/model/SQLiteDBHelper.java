@@ -26,6 +26,7 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
 
     //Declaration of the table for storing information about users
     public static final String TABLE_USERS = "users";
+    public static final String KEY_ENTRY_ID = "entry_id";
     public static final String KEY_USER_ID = "user_id";
     public static final String KEY_USER_LOGIN = "login";
     public static final String KEY_USER_PASSWORD = "password";
@@ -57,7 +58,8 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
         String CREATE_TABLE_USERS =
                 "CREATE TABLE " + TABLE_USERS +
                         "("
-                            + KEY_USER_ID + " INTEGER PRIMARY KEY,"
+                            + KEY_ENTRY_ID + " INTEGER PRIMARY KEY,"
+                            + KEY_USER_ID + "INTEGER"
                             + KEY_USER_LOGIN + " TEXT"
                             + KEY_USER_PASSWORD + " TEXT" +
                         ")";

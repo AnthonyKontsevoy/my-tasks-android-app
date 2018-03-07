@@ -15,6 +15,8 @@ public class UserTask {
     private int hasNotificationAlert;
     private String repeatMode;
 
+    public User attachedUser;
+
     public int getTaskID() {
         return taskID;
     }
@@ -71,8 +73,15 @@ public class UserTask {
         this.repeatMode = repeatMode;
     }
 
-    public int editTask (int ID, int userID, String title, String description, int status, String dueDate, int hasNotificationAlert, String repeatMode) {
-        this.taskID = ID;
+    public User getAttachedUser() {
+        return attachedUser;
+    }
+    public void setAttachedUser(User user) {
+        attachedUser = user;
+    }
+
+    public int editTask (int taskID, int userID, String title, String description, int status, String dueDate, int hasNotificationAlert, String repeatMode) {
+        this.taskID = taskID;
         this.assignedUserID = userID;
         this.title = title;
         this.description = description;
