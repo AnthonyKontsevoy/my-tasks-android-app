@@ -7,4 +7,8 @@
     <string name="nav_settings_section">Settings</string>
     <string name="nav_change_user">Change user</string>
     <string name="nav_settings">Settings</string>
+    <string name="task_title_template">Lorem ipsum</string>
+    <string name="task_date">May 7</string>
+    <string name="task_time">04:00</string>
+    <string name="task_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
 </resources>

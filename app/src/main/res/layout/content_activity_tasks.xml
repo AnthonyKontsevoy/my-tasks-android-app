@@ -5,7 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.anthonyestacado.mytasks.tasksview.ActivityTasks"
+    tools:context="com.anthonyestacado.mytasks.tasksview.activity.ActivityTasks"
     tools:showIn="@layout/app_bar_activity_tasks">
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </android.support.constraint.ConstraintLayout>

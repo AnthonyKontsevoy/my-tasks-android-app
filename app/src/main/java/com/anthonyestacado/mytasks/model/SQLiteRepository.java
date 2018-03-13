@@ -112,14 +112,22 @@ public class SQLiteRepository  implements IRepository{
         String selectQuery = "";
         switch(selection_mode) {
             //All tasks
-            case 0: selectQuery = "SELECT  * FROM " + SQLiteDBHelper.TABLE_TASKS;
+            case 0: {
+                selectQuery = "SELECT  * FROM " + SQLiteDBHelper.TABLE_TASKS;
+                break;
+            }
 
-                //In progress
-            case 1: selectQuery = "SELECT  * FROM " + SQLiteDBHelper.TABLE_TASKS + " WHERE " + SQLiteDBHelper.KEY_TASK_STATUS + " = false";
+            //In progress
+            case 1:{
+                selectQuery = "SELECT  * FROM " + SQLiteDBHelper.TABLE_TASKS + " WHERE " + SQLiteDBHelper.KEY_TASK_STATUS + " = false";
+                break;
+            }
 
-                //Done tasks
-            case 2: selectQuery = "SELECT  * FROM " + SQLiteDBHelper.TABLE_TASKS + " WHERE " + SQLiteDBHelper.KEY_TASK_STATUS + " = true";
-
+            //Done tasks
+            case 2: {
+                selectQuery = "SELECT  * FROM " + SQLiteDBHelper.TABLE_TASKS + " WHERE " + SQLiteDBHelper.KEY_TASK_STATUS + " = true";
+                break;
+            }
                 //Default query which returns all tasks
             default: selectQuery = "SELECT  * FROM " + SQLiteDBHelper.TABLE_TASKS;
         }

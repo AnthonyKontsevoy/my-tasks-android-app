@@ -10,10 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity
+            android:name=".splashscreenview.SplashActivity"
+            android:theme="@style/SplashTheme">
+
+        </activity>
+
         <activity android:name=".loginview.LoginScreenActivity" />
 
         <activity
-            android:name=".tasksview.ActivityTasks"
+            android:name=".tasksview.activity.ActivityTasks"
             android:label="@string/title_activity_tasks"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

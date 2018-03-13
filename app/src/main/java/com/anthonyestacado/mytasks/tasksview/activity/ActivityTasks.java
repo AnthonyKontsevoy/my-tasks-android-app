@@ -1,5 +1,7 @@
-package com.anthonyestacado.mytasks.tasksview;
+package com.anthonyestacado.mytasks.tasksview.activity;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,13 +16,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.anthonyestacado.mytasks.R;
+import com.anthonyestacado.mytasks.tasksview.fragments.taskslist.TasksListFragment;
 
 public class ActivityTasks extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //setTheme(R.style.AppTheme_NoActionBar);
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_tasks);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -42,6 +48,12 @@ public class ActivityTasks extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        TasksListFragment userTasksFragment = new TasksListFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.fragment_container, userTasksFragment);
+        fragmentTransaction.commit();
     }
 
     @Override

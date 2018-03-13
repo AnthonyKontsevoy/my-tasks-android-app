@@ -1,4 +1,4 @@
-package com.anthonyestacado.mytasks.tasksview;
+package com.anthonyestacado.mytasks.tasksview.activity;
 
 /**
  * Created by Anthony Kontsevoy on 06.03.2018.
