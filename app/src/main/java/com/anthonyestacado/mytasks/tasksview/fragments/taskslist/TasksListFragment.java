@@ -6,8 +6,11 @@ import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.os.RemoteCallbackList;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +28,10 @@ import java.util.List;
  */
 
 public class TasksListFragment extends Fragment {
+
     private List<UserTask> userTasksList;
+
+    private String userTasksSelectionCriteria;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,9 +39,12 @@ public class TasksListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.tasks_list_fragment, container, false);
 
-        //TODO: load information about tasks into the list
-        //userTasksList = new ArrayList<>();
 
+        if (getArguments() != null) {
+            userTasksSelectionCriteria = getArguments().getString("userTaskSelectionCriteria");
+        }
+
+        //TODO: load information about tasks into the list
         userTasksList = MyUtils.getListOfUserTasksForDebug();
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.userTasksRecyclerView);
@@ -45,6 +54,8 @@ public class TasksListFragment extends Fragment {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
+
+        getActivity().setTitle(R.string.title_all_tasks);
 
         return view;
     }

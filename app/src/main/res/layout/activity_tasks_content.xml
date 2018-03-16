@@ -6,13 +6,14 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.anthonyestacado.mytasks.tasksview.activity.ActivityTasks"
-    tools:showIn="@layout/app_bar_activity_tasks">
+    tools:showIn="@layout/activity_tasks_app_bar">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal" />
+        android:orientation="horizontal"
+        android:layout_gravity="center"/>
 
 </android.support.constraint.ConstraintLayout>

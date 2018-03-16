@@ -23,14 +23,15 @@ public class ActivityTasks extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //setTheme(R.style.AppTheme_NoActionBar);
 
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_tasks);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        //Set up toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.mainActivityToolbar);
         setSupportActionBar(toolbar);
 
+        //Set up fab
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +41,8 @@ public class ActivityTasks extends AppCompatActivity
             }
         });
 
+
+        //Set up navigation drawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -49,9 +52,17 @@ public class ActivityTasks extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //Initialize default fragment
         TasksListFragment userTasksFragment = new TasksListFragment();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        //Send a parameters which is used in a fragment to determine what type of tasks it must load
+        Bundle bundleForFragment = new Bundle();
+        bundleForFragment.putString("userTaskSelectionCriteria", String.valueOf(R.string.title_all_tasks));
+        userTasksFragment.setArguments(bundleForFragment);
+
+        //Start fragment
         fragmentTransaction.add(R.id.fragment_container, userTasksFragment);
         fragmentTransaction.commit();
     }

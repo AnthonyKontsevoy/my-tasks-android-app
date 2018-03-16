@@ -13,21 +13,20 @@
         <activity
             android:name=".splashscreenview.SplashActivity"
             android:theme="@style/SplashTheme">
-
-        </activity>
-
-        <activity android:name=".loginview.LoginScreenActivity" />
-
-        <activity
-            android:name=".tasksview.activity.ActivityTasks"
-            android:label="@string/title_activity_tasks"
-            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".loginview.LoginScreenActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".tasksview.activity.ActivityTasks"
+            android:label="@string/title_activity_tasks"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
