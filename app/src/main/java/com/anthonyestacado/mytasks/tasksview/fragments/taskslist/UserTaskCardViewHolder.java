@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anthonyestacado.mytasks.R;
 
@@ -14,6 +15,7 @@ import org.w3c.dom.Text;
  */
 
 class UserTaskCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
     ImageView statusImage;
     TextView userTaskTitle;
     TextView userTaskDescription;
@@ -35,5 +37,10 @@ class UserTaskCardViewHolder extends RecyclerView.ViewHolder implements View.OnC
     @Override
     public void onClick(View view) {
 
+        //TODO: add a method to show a user task details fragment
+
+        //This is a placeholder
+        Toast toast = Toast.makeText(view.getContext(), "RecyclerView item clicked", Toast.LENGTH_LONG);
+        toast.show();
     }
 }

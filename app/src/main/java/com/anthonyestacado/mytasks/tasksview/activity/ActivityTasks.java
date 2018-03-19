@@ -19,7 +19,7 @@ import com.anthonyestacado.mytasks.R;
 import com.anthonyestacado.mytasks.tasksview.fragments.taskslist.TasksListFragment;
 
 public class ActivityTasks extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+                            implements NavigationView.OnNavigationItemSelectedListener, IActivityTasks {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,5 +122,16 @@ public class ActivityTasks extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void setToolbarTitle(int resourceID) {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.mainActivityToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(resourceID);
+    }
+
+    @Override
+    public void expandToolbar() {
+
     }
 }

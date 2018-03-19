@@ -43,7 +43,18 @@ public class Model implements IModel {
     }
 
     @Override
-    public int editTask(int userTaskID) {
+    public int editTask(int userTaskID, String title, String description, int status, String dueDate, String repeatMode) {
+
+        UserTask userTask = new UserTask();
+        userTask.setAssignedUserID(currentUser.getUserID());
+        userTask.setTitle(title);
+        userTask.setDescription(description);
+        userTask.setStatus(status);
+        userTask.setDueDate(dueDate);
+        userTask.setRepeatMode(repeatMode);
+
+        sqliteRepo.updateUserTask(userTask);
+
         return 0;
     }
 

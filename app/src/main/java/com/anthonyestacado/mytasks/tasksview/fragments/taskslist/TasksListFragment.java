@@ -8,6 +8,7 @@ import android.os.RemoteCallbackList;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +20,7 @@ import android.widget.ListAdapter;
 import com.anthonyestacado.mytasks.R;
 import com.anthonyestacado.mytasks.model.MyUtils;
 import com.anthonyestacado.mytasks.model.UserTask;
+import com.anthonyestacado.mytasks.tasksview.activity.IActivityTasks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +35,15 @@ public class TasksListFragment extends Fragment {
 
     private String userTasksSelectionCriteria;
 
+    private IActivityTasks userTasksActivity;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.tasks_list_fragment, container, false);
 
+        userTasksActivity = (IActivityTasks) getActivity();
 
         if (getArguments() != null) {
             userTasksSelectionCriteria = getArguments().getString("userTaskSelectionCriteria");
@@ -48,15 +53,14 @@ public class TasksListFragment extends Fragment {
         userTasksList = MyUtils.getListOfUserTasksForDebug();
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.userTasksRecyclerView);
-
         RecyclerViewAdapter listAdapter = new RecyclerViewAdapter(getActivity().getApplicationContext(), userTasksList);
-        recyclerView.setAdapter(listAdapter);
-
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(listAdapter);
 
-        getActivity().setTitle(R.string.title_all_tasks);
-
+        //getActivity().setTitle(R.string.title_all_tasks);
+        userTasksActivity.setToolbarTitle(R.string.title_all_tasks);
         return view;
     }
 }

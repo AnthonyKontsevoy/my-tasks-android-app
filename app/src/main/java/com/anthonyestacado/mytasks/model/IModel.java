@@ -9,7 +9,7 @@ import java.util.List;
 public interface IModel {
 
     int createTask(String title, String description, int status, String dueDate, String repeatMode);
-    int editTask(int userTaskID);
+    int editTask(int userTaskID, String title, String description, int status, String dueDate, String repeatMode);
     int deleteTask(int userTaskID);
     UserTask getUserTaskByID(int userTaskID);
     List<UserTask> getTasks(int selectionModeID);

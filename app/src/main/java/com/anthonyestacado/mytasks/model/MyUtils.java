@@ -98,7 +98,7 @@ public class MyUtils {
             userTask1.setAssignedUserID(1);
             userTask1.setTitle("Test title" + String.valueOf(i + 1));
             userTask1.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
-            userTask1.setStatus(0);
+            userTask1.setStatus(1);
             userTask1.setDueDate("2018-03-30 23:59:06");
             userTask1.setHasNotificationAlert(0);
             userTask1.setRepeatMode("never");
