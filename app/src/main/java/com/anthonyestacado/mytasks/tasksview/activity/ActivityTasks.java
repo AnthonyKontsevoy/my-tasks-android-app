@@ -3,6 +3,7 @@ package com.anthonyestacado.mytasks.tasksview.activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -14,12 +15,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anthonyestacado.mytasks.R;
 import com.anthonyestacado.mytasks.tasksview.fragments.taskslist.TasksListFragment;
 
+import org.w3c.dom.Text;
+
 public class ActivityTasks extends AppCompatActivity
                             implements NavigationView.OnNavigationItemSelectedListener, IActivityTasks {
+
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +36,7 @@ public class ActivityTasks extends AppCompatActivity
         setContentView(R.layout.activity_tasks);
 
         //Set up toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.mainActivityToolbar);
+        toolbar = (Toolbar) findViewById(R.id.mainActivityToolbar);
         setSupportActionBar(toolbar);
 
         //Set up fab
@@ -52,19 +60,8 @@ public class ActivityTasks extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //Initialize default fragment
-        TasksListFragment userTasksFragment = new TasksListFragment();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        //Send a parameters which is used in a fragment to determine what type of tasks it must load
-        Bundle bundleForFragment = new Bundle();
-        bundleForFragment.putString("userTaskSelectionCriteria", String.valueOf(R.string.title_all_tasks));
-        userTasksFragment.setArguments(bundleForFragment);
-
-        //Start fragment
-        fragmentTransaction.add(R.id.fragment_container, userTasksFragment);
-        fragmentTransaction.commit();
+        //load default fragment
+        loadFragmentByCriteria(getResources().getString(R.string.title_all_tasks));
     }
 
     @Override
@@ -91,11 +88,16 @@ public class ActivityTasks extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.home: {
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.openDrawer(GravityCompat.START);
+                return true;
+            }
+            case R.id.action_settings: {
+                return true;
+            }
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -106,16 +108,37 @@ public class ActivityTasks extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_all_tasks) {
-            // Handle the camera action
+
+            clearFragmentContainer();
+            loadFragmentByCriteria(getResources().getString(R.string.title_all_tasks));
+
         } else if (id == R.id.nav_tasks_in_progress) {
+
+            clearFragmentContainer();
+            loadFragmentByCriteria(getResources().getString(R.string.title_tasks_in_progress));
 
         } else if (id == R.id.nav_done_tasks) {
 
+            clearFragmentContainer();
+            loadFragmentByCriteria(getResources().getString(R.string.title_done_tasks));
+
         } else if (id == R.id.nav_agenda) {
+
+            //TODO: implement agenda as a part of Phase 2
+            Toast toast = Toast.makeText(this, "Coming soon", Toast.LENGTH_LONG);
+            toast.show();
 
         } else if (id == R.id.nav_change_user) {
 
+            //TODO: implement agenda as a part of Phase 2
+            Toast toast = Toast.makeText(this, "Coming soon", Toast.LENGTH_LONG);
+            toast.show();
+
         } else if (id == R.id.nav_settings) {
+
+            //TODO: implement agenda as a part of Phase 2
+            Toast toast = Toast.makeText(this, "Coming soon", Toast.LENGTH_LONG);
+            toast.show();
 
         }
 
@@ -124,10 +147,29 @@ public class ActivityTasks extends AppCompatActivity
         return true;
     }
 
-    public void setToolbarTitle(int resourceID) {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.mainActivityToolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(resourceID);
+    private void loadFragmentByCriteria(String criteria) {
+        //Initialize fragment
+        TasksListFragment userTasksFragment = new TasksListFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        //Send a parameters which is used in a fragment to determine what type of tasks it must load
+        Bundle bundleForFragment = new Bundle();
+        bundleForFragment.putString("criteria", criteria);
+        userTasksFragment.setArguments(bundleForFragment);
+
+        //Start fragment
+        fragmentTransaction.add(R.id.fragment_container, userTasksFragment);
+        fragmentTransaction.commit();
+    }
+
+    private void clearFragmentContainer() {
+        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+        frameLayout.removeAllViewsInLayout();
+    }
+
+    public void setToolbarTitle(String toolbarTitle) {
+        getSupportActionBar().setTitle(toolbarTitle);
     }
 
     @Override

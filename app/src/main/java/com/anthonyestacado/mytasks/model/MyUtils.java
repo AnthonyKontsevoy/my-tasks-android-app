@@ -72,7 +72,7 @@ public class MyUtils {
         return stringBuilder.substring(11,16);
     }
 
-    public static List<UserTask> getListOfUserTasksForDebug() {
+    public static List<UserTask> getListOfAllUserTasks() {
 
         List<UserTask> userTasksForDebug = new ArrayList<UserTask>();
 
@@ -82,7 +82,7 @@ public class MyUtils {
 
             userTask.setTaskID(1);
             userTask.setAssignedUserID(1);
-            userTask.setTitle("Test title" + String.valueOf(i));
+            userTask.setTitle("Test title " + String.valueOf(i));
             userTask.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
             userTask.setStatus(0);
             userTask.setDueDate("2018-03-30 23:59:06");
@@ -96,7 +96,7 @@ public class MyUtils {
 
             userTask1.setTaskID(1);
             userTask1.setAssignedUserID(1);
-            userTask1.setTitle("Test title" + String.valueOf(i + 1));
+            userTask1.setTitle("Test title " + String.valueOf(i + 1));
             userTask1.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
             userTask1.setStatus(1);
             userTask1.setDueDate("2018-03-30 23:59:06");
@@ -107,6 +107,81 @@ public class MyUtils {
             userTasksForDebug.add(userTask1);
         }
 
+        return userTasksForDebug;
+    }
+
+    public static List<UserTask> getListOfUserTasksInProgress() {
+
+        List<UserTask> userTasksForDebug = new ArrayList<UserTask>();
+
+        for (int i = 0; i < 3; i++) {
+
+            UserTask userTask = new UserTask();
+
+            userTask.setTaskID(1);
+            userTask.setAssignedUserID(1);
+            userTask.setTitle("Test title " + String.valueOf(i));
+            userTask.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
+            userTask.setStatus(0);
+            userTask.setDueDate("2018-03-30 23:59:06");
+            userTask.setHasNotificationAlert(0);
+            userTask.setRepeatMode("never");
+            userTask.setAttachedUser(null);
+
+            userTasksForDebug.add(userTask);
+
+            UserTask userTask1 = new UserTask();
+
+            userTask1.setTaskID(1);
+            userTask1.setAssignedUserID(1);
+            userTask1.setTitle("Test title " + String.valueOf(i + 1));
+            userTask1.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
+            userTask1.setStatus(0);
+            userTask1.setDueDate("2018-03-30 23:59:06");
+            userTask1.setHasNotificationAlert(0);
+            userTask1.setRepeatMode("never");
+            userTask1.setAttachedUser(null);
+
+            userTasksForDebug.add(userTask1);
+        }
+
+        return userTasksForDebug;
+    }
+
+    public static List<UserTask> getListOfDoneUserTasks() {
+
+        List<UserTask> userTasksForDebug = new ArrayList<UserTask>();
+
+        for (int i = 0; i < 2; i++) {
+
+            UserTask userTask = new UserTask();
+
+            userTask.setTaskID(1);
+            userTask.setAssignedUserID(1);
+            userTask.setTitle("Test title " + String.valueOf(i));
+            userTask.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
+            userTask.setStatus(1);
+            userTask.setDueDate("2018-03-30 23:59:06");
+            userTask.setHasNotificationAlert(0);
+            userTask.setRepeatMode("never");
+            userTask.setAttachedUser(null);
+
+            userTasksForDebug.add(userTask);
+
+            UserTask userTask1 = new UserTask();
+
+            userTask1.setTaskID(1);
+            userTask1.setAssignedUserID(1);
+            userTask1.setTitle("Test title " + String.valueOf(i + 1));
+            userTask1.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
+            userTask1.setStatus(1);
+            userTask1.setDueDate("2018-03-30 23:59:06");
+            userTask1.setHasNotificationAlert(0);
+            userTask1.setRepeatMode("never");
+            userTask1.setAttachedUser(null);
+
+            userTasksForDebug.add(userTask1);
+        }
         return userTasksForDebug;
     }
 }

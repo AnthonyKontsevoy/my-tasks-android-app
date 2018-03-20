@@ -6,6 +6,6 @@ package com.anthonyestacado.mytasks.tasksview.activity;
 
 public interface IActivityTasks {
 
-    void setToolbarTitle(int resourceID);
+    void setToolbarTitle(String toolbarTitle);
     void expandToolbar();
 }

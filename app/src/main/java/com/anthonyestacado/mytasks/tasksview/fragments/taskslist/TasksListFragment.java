@@ -20,6 +20,7 @@ import android.widget.ListAdapter;
 import com.anthonyestacado.mytasks.R;
 import com.anthonyestacado.mytasks.model.MyUtils;
 import com.anthonyestacado.mytasks.model.UserTask;
+import com.anthonyestacado.mytasks.tasksview.activity.ActivityTasks;
 import com.anthonyestacado.mytasks.tasksview.activity.IActivityTasks;
 
 import java.util.ArrayList;
@@ -45,12 +46,33 @@ public class TasksListFragment extends Fragment {
 
         userTasksActivity = (IActivityTasks) getActivity();
 
-        if (getArguments() != null) {
-            userTasksSelectionCriteria = getArguments().getString("userTaskSelectionCriteria");
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+
+            userTasksSelectionCriteria = getArguments().getString("criteria");
         }
 
         //TODO: load information about tasks into the list
-        userTasksList = MyUtils.getListOfUserTasksForDebug();
+        if (userTasksSelectionCriteria != null) {
+            switch (userTasksSelectionCriteria) {
+                case "All tasks": {
+                    userTasksList = MyUtils.getListOfAllUserTasks();
+                    break;
+                }
+                case "In progress": {
+                    userTasksList = MyUtils.getListOfUserTasksInProgress();
+                    break;
+                }
+                case "Done":{
+                    userTasksList = MyUtils.getListOfDoneUserTasks();
+                    break;
+                }
+                default: {
+                    userTasksList = MyUtils.getListOfAllUserTasks();
+                    break;
+                }
+            }
+        }
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.userTasksRecyclerView);
         RecyclerViewAdapter listAdapter = new RecyclerViewAdapter(getActivity().getApplicationContext(), userTasksList);
@@ -59,8 +81,9 @@ public class TasksListFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(listAdapter);
 
-        //getActivity().setTitle(R.string.title_all_tasks);
-        userTasksActivity.setToolbarTitle(R.string.title_all_tasks);
+        ((ActivityTasks) getActivity()).setToolbarTitle(userTasksSelectionCriteria);
+        //getActivity().setTitle(userTasksSelectionCriteria);
+        //userTasksActivity.setToolbarTitle(userTasksSelectionCriteria);
         return view;
     }
 }
