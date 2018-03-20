@@ -8,7 +8,7 @@
     tools:context="com.anthonyestacado.mytasks.tasksview.activity.ActivityTasks"
     tools:showIn="@layout/activity_tasks_app_bar">
 
-    <LinearLayout
+    <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"

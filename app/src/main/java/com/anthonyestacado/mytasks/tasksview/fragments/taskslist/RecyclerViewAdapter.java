@@ -55,20 +55,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<UserTaskCardViewHo
         holder.userTaskDueTime.setText(time);
 
         switch (userTask.getStatus()) {
-            //Sets the "All tasks" image
-            case 0: {
-                holder.statusImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_all_tasks));
-                break;
-            }
-
             //Sets the "In progress" image
-            case 1: {
+            case 0: {
                 holder.statusImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_tasks_in_progress));
                 break;
             }
 
-            //Sets the "Done tasks" image
-            case 2: {
+            //Sets the "Done" image
+            case 1: {
                 holder.statusImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_done_tasks));
                 break;
             }

@@ -3,8 +3,8 @@
 
     <string name="title_activity_tasks">Tasks</string>
 
-    <string name="title_all_tasks">All Tasks</string>
-    <string name="title_tasks_in_progress">In Progress</string>
+    <string name="title_all_tasks">All tasks</string>
+    <string name="title_tasks_in_progress">In progress</string>
     <string name="title_done_tasks">Done</string>
 
     <string name="action_settings">Settings</string>
