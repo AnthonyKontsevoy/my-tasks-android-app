@@ -6,7 +6,7 @@ import com.anthonyestacado.mytasks.model.UserTask;
  * Created by User on 05.03.2018.
  */
 
-public interface IUserTasksDetailsPresenter {
+public interface UserTasksDetailsPresenterInterface {
 
     int changeUserTaskStatus(int userTaskID);
     int deleteUserTask(int userTaskID);

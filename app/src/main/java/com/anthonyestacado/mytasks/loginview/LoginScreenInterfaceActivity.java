@@ -7,11 +7,11 @@ import android.view.View;
 import android.widget.Button;
 
 import com.anthonyestacado.mytasks.R;
-import com.anthonyestacado.mytasks.tasksview.activity.ActivityTasks;
+import com.anthonyestacado.mytasks.tasksview.activity.TasksActivity;
 
-public class LoginScreenActivity extends AppCompatActivity implements ILoginScreen, View.OnClickListener {
+public class LoginScreenInterfaceActivity extends AppCompatActivity implements LoginScreenInterface, View.OnClickListener {
 
-    ILoginScreenPresenter presenter;
+    LoginScreenPresenterInterface presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class LoginScreenActivity extends AppCompatActivity implements ILoginScre
 
                 //TODO: use an authentication procedure to determine if it is allowed to start main activity
                 //For the sake of initial UI testing we will redirect user to the main activity without any authentication
-                Intent startMainActivityIntent = new Intent(this, ActivityTasks.class);
+                Intent startMainActivityIntent = new Intent(this, TasksActivity.class);
                 startActivity(startMainActivityIntent);
 
                 finish();

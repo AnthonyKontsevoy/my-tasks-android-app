@@ -2,7 +2,9 @@ package com.anthonyestacado.mytasks.tasksview.activity;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,16 +18,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anthonyestacado.mytasks.R;
+import com.anthonyestacado.mytasks.ScrollingActivity;
 import com.anthonyestacado.mytasks.tasksview.fragments.taskslist.TasksListFragment;
+import com.anthonyestacado.mytasks.tasksview.fragments.usertaskdetails.UserTaskDetailsFragment;
 
-import org.w3c.dom.Text;
-
-public class ActivityTasks extends AppCompatActivity
-                            implements NavigationView.OnNavigationItemSelectedListener, IActivityTasks {
+public class TasksActivity extends AppCompatActivity
+                            implements NavigationView.OnNavigationItemSelectedListener, TasksActivityInterface {
 
     private Toolbar toolbar;
 
@@ -36,8 +37,13 @@ public class ActivityTasks extends AppCompatActivity
         setContentView(R.layout.activity_tasks);
 
         //Set up toolbar
-        toolbar = (Toolbar) findViewById(R.id.mainActivityToolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout.setTitleEnabled(true);
+
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar) ;
+        appBarLayout.setExpanded(false,true);
 
         //Set up fab
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -61,7 +67,7 @@ public class ActivityTasks extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //load default fragment
-        loadFragmentByCriteria(getResources().getString(R.string.title_all_tasks));
+        loadUserTasksListFragmentByCriteria(getResources().getString(R.string.title_all_tasks));
     }
 
     @Override
@@ -97,6 +103,26 @@ public class ActivityTasks extends AppCompatActivity
             case R.id.action_settings: {
                 return true;
             }
+            case R.id.action_testScrollingActivity: {
+                Intent intent = new Intent(this, ScrollingActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            case R.id.action_testFragmentTaskDetails: {
+                UserTaskDetailsFragment detailsFragment = new UserTaskDetailsFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.fragment_container, detailsFragment).addToBackStack(null).commit();
+
+//                FragmentManager fragmentManager = getFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+//                //Start fragment
+//                fragmentTransaction.add(R.id.fragment_container, detailsFragment);
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
+
+                return true;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -109,18 +135,15 @@ public class ActivityTasks extends AppCompatActivity
 
         if (id == R.id.nav_all_tasks) {
 
-            clearFragmentContainer();
-            loadFragmentByCriteria(getResources().getString(R.string.title_all_tasks));
+            loadUserTasksListFragmentByCriteria(getResources().getString(R.string.title_all_tasks));
 
         } else if (id == R.id.nav_tasks_in_progress) {
 
-            clearFragmentContainer();
-            loadFragmentByCriteria(getResources().getString(R.string.title_tasks_in_progress));
+            loadUserTasksListFragmentByCriteria(getResources().getString(R.string.title_tasks_in_progress));
 
         } else if (id == R.id.nav_done_tasks) {
 
-            clearFragmentContainer();
-            loadFragmentByCriteria(getResources().getString(R.string.title_done_tasks));
+            loadUserTasksListFragmentByCriteria(getResources().getString(R.string.title_done_tasks));
 
         } else if (id == R.id.nav_agenda) {
 
@@ -130,13 +153,13 @@ public class ActivityTasks extends AppCompatActivity
 
         } else if (id == R.id.nav_change_user) {
 
-            //TODO: implement agenda as a part of Phase 2
+            //TODO: implement multi-user support as a part of Phase 2
             Toast toast = Toast.makeText(this, "Coming soon", Toast.LENGTH_LONG);
             toast.show();
 
         } else if (id == R.id.nav_settings) {
 
-            //TODO: implement agenda as a part of Phase 2
+            //TODO: implement settings as a part of Phase 2
             Toast toast = Toast.makeText(this, "Coming soon", Toast.LENGTH_LONG);
             toast.show();
 
@@ -147,7 +170,7 @@ public class ActivityTasks extends AppCompatActivity
         return true;
     }
 
-    private void loadFragmentByCriteria(String criteria) {
+    public void loadUserTasksListFragmentByCriteria(String criteria) {
         //Initialize fragment
         TasksListFragment userTasksFragment = new TasksListFragment();
         FragmentManager fragmentManager = getFragmentManager();
@@ -160,8 +183,21 @@ public class ActivityTasks extends AppCompatActivity
 
         //Start fragment
         fragmentTransaction.add(R.id.fragment_container, userTasksFragment);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
+    public void loadUserTaskDetailsFragment(int userTaskID) {
+        UserTaskDetailsFragment detailsFragment = new UserTaskDetailsFragment();
+
+        Bundle bundleForFragment = new Bundle();
+        bundleForFragment.putInt("id", userTaskID);
+        detailsFragment.setArguments(bundleForFragment);
+
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, detailsFragment).addToBackStack(null).commit();
+
+   }
 
     private void clearFragmentContainer() {
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.fragment_container);
@@ -174,6 +210,13 @@ public class ActivityTasks extends AppCompatActivity
 
     @Override
     public void expandToolbar() {
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar) ;
+        appBarLayout.setExpanded(true,true);
+    }
 
+    @Override
+    public void lockToolbar() {
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar) ;
+        appBarLayout.setExpanded(false,true);
     }
 }

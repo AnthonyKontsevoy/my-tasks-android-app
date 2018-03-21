@@ -4,7 +4,7 @@ package com.anthonyestacado.mytasks.loginview;
  * Created by Anthony Kontsevoy on 06.03.2018.
  */
 
-public interface ILoginScreen {
+public interface LoginScreenInterface {
     void getUserCredentials();
     void showLoginError(String errorMessage);
 }

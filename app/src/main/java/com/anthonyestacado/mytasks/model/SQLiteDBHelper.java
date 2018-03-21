@@ -31,7 +31,13 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
     public static final String KEY_USER_LOGIN = "login";
     public static final String KEY_USER_PASSWORD = "password";
 
-    public SQLiteDBHelper(Context context) {
+    public static Context context;
+
+    public static void setContext(Context receivedContext) {
+        context = receivedContext;
+    }
+
+    public SQLiteDBHelper() {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

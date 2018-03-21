@@ -1,17 +1,24 @@
 package com.anthonyestacado.mytasks.tasksview.fragments.taskslist;
 
+import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.anthonyestacado.mytasks.R;
 import com.anthonyestacado.mytasks.model.MyUtils;
 import com.anthonyestacado.mytasks.model.User;
 import com.anthonyestacado.mytasks.model.UserTask;
+import com.anthonyestacado.mytasks.tasksview.fragments.usertaskdetails.UserTaskDetailsFragment;
 
 import java.util.List;
+
+import static com.anthonyestacado.mytasks.model.SQLiteDBHelper.context;
 
 /**
  * Created by Anthony Kontsevoy on 12.03.2018.
@@ -22,11 +29,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<UserTaskCardViewHo
     //Needed to inflate the layout
     private Context context;
 
+    //Fragment which uses this adapter
+    private TasksListFragment fragment;
+
     //Stores th list of all user tasks
     private List<UserTask> userTasksList;
 
-    public RecyclerViewAdapter(Context context, List<UserTask> userTasksList) {
+    public RecyclerViewAdapter(Context context, TasksListFragment fragment, List<UserTask> userTasksList) {
         this.context = context;
+        this.fragment = fragment;
         this.userTasksList = userTasksList;
     }
 
@@ -74,8 +85,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<UserTaskCardViewHo
 
     }
 
+    public void loadUserTasksDetailsFragment(int userTaskID) {
+        fragment.loadUserTasksDetailsFragment(userTaskID);
+    }
+
     @Override
     public int getItemCount() {
         return userTasksList.size();
     }
+
+
 }

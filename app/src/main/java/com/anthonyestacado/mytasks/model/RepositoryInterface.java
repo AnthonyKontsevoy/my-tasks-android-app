@@ -6,7 +6,7 @@ import java.util.List;
  * Created by User on 05.03.2018.
  */
 
-public interface IRepository {
+public interface RepositoryInterface {
 
     int saveUserTask(UserTask userTask);
     int updateUserTask(UserTask userTask);
