@@ -3,8 +3,6 @@ package com.anthonyestacado.mytasks.model;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,19 +11,20 @@ import java.util.List;
  * Created by Anthony Kontsevoy on 06.03.2018.
  */
 
-public class SQLiteRepository  implements IRepository{
+public class SQLiteRepository  implements RepositoryInterface {
 
 
     //For singleton
     private static SQLiteRepository instance;
 
-    private SQLiteDBHelper database;
+    private static SQLiteDBHelper database;
     private ContentValues valuesForDB;
 
     //Singelton method for getting SQLiteRepository instance
-    public static SQLiteRepository getInstance (Context context) {
+    public static SQLiteRepository getInstance () {
         if (instance == null) {
             instance = new SQLiteRepository();
+            database = new SQLiteDBHelper();
         }
         return instance;
     }
@@ -76,6 +75,7 @@ public class SQLiteRepository  implements IRepository{
         return 0;
     }
 
+    //This method is called when you need to get a specific task by its ID
     @Override
     public UserTask getUserTaskByID(int userTaskID) {
 

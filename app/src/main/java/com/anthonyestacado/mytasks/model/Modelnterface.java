@@ -6,7 +6,7 @@ import java.util.List;
  * Created by anthonykontsevoy on 05.03.2018.
  */
 
-public interface IModel {
+public interface Modelnterface {
 
     int createTask(String title, String description, int status, String dueDate, String repeatMode);
     int editTask(int userTaskID, String title, String description, int status, String dueDate, String repeatMode);

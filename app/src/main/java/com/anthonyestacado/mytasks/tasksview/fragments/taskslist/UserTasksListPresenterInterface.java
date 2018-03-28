@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Anthony Kontsevoy on 05.03.2018.
  */
 
-public interface IUserTasksListPresenter {
+public interface UserTasksListPresenterInterface {
 
     int createUserTask();
     int editUserTask(int userTaskID);

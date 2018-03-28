@@ -1,50 +1,50 @@
 package com.anthonyestacado.mytasks.tasksview.fragments.taskslist;
 
-import android.app.Application;
+import android.app.Activity;
 import android.app.Fragment;
-import android.database.DataSetObserver;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.os.RemoteCallbackList;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
 
 import com.anthonyestacado.mytasks.R;
 import com.anthonyestacado.mytasks.model.MyUtils;
 import com.anthonyestacado.mytasks.model.UserTask;
-import com.anthonyestacado.mytasks.tasksview.activity.ActivityTasks;
-import com.anthonyestacado.mytasks.tasksview.activity.IActivityTasks;
+import com.anthonyestacado.mytasks.tasksview.activity.TasksActivity;
+import com.anthonyestacado.mytasks.tasksview.activity.TasksActivityInterface;
+import com.anthonyestacado.mytasks.tasksview.fragments.usertaskdetails.UserTaskDetailsFragment;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static com.anthonyestacado.mytasks.model.SQLiteDBHelper.context;
 
 /**
  * Created by Anthony Kontsevoy on 12.03.2018.
  */
 
-public class TasksListFragment extends Fragment {
+public class TasksListFragment extends Fragment  {
 
     private List<UserTask> userTasksList;
 
     private String userTasksSelectionCriteria;
 
-    private IActivityTasks userTasksActivity;
+    private RecyclerView recyclerView;
+
+    private TasksActivityInterface userTasksActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.tasks_list_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_tasks_list, container, false);
 
-        userTasksActivity = (IActivityTasks) getActivity();
+        userTasksActivity = (TasksActivityInterface) getActivity();
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -74,16 +74,31 @@ public class TasksListFragment extends Fragment {
             }
         }
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.userTasksRecyclerView);
-        RecyclerViewAdapter listAdapter = new RecyclerViewAdapter(getActivity().getApplicationContext(), userTasksList);
+        recyclerView = (RecyclerView) view.findViewById(R.id.userTasksRecyclerView);
+        RecyclerViewAdapter listAdapter = new RecyclerViewAdapter(getActivity().getApplicationContext(), this, userTasksList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(listAdapter);
 
-        ((ActivityTasks) getActivity()).setToolbarTitle(userTasksSelectionCriteria);
-        //getActivity().setTitle(userTasksSelectionCriteria);
-        //userTasksActivity.setToolbarTitle(userTasksSelectionCriteria);
+        //Lock the collapsing toolbar in the parent activity
+        recyclerView.setNestedScrollingEnabled(false);
+
+        ((TasksActivity) getActivity()).setToolbarTitle(userTasksSelectionCriteria);
         return view;
     }
+
+    public void loadUserTasksDetailsFragment(int userTaskID) {
+        userTasksActivity.loadUserTaskDetailsFragment(userTaskID);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        //Lock the collapsing toolbar in the parent activity
+        recyclerView.setNestedScrollingEnabled(false);
+
+    }
+
 }

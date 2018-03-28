@@ -1,18 +1,18 @@
 package com.anthonyestacado.mytasks.loginview;
 
-import com.anthonyestacado.mytasks.model.IModel;
+import com.anthonyestacado.mytasks.model.Modelnterface;
 import com.anthonyestacado.mytasks.model.Model;
 
 /**
  * Created by Anthony Kontsevoy on 06.03.2018.
  */
 
-public class LoginScreenPresenter implements ILoginScreenPresenter {
+public class LoginScreenPresenter implements LoginScreenPresenterInterface {
 
-    private ILoginScreen loginView;
-    private IModel modelInstance;
+    private LoginScreenInterface loginView;
+    private Modelnterface modelInstance;
 
-    public LoginScreenPresenter(ILoginScreen loginView) {
+    public LoginScreenPresenter(LoginScreenInterface loginView) {
         this.loginView = loginView;
         modelInstance = Model.getModelInstance();
     }

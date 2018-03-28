@@ -6,16 +6,16 @@ import java.util.List;
  * Created by Anthony Kontsevoy on 06.03.2018.
  */
 
-public class Model implements IModel {
+public class Model implements Modelnterface {
 
     private static Model modelInstance;
 
-    private IRepository sqliteRepo;
+    private RepositoryInterface sqliteRepo;
 
     private User currentUser;
 
     private Model () {
-        sqliteRepo = new SQLiteRepository();
+        sqliteRepo = SQLiteRepository.getInstance();
         currentUser = new User();
     }
 
