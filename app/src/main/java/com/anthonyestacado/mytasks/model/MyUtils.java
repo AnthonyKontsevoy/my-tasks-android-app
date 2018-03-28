@@ -80,7 +80,7 @@ public class MyUtils {
 
             UserTask userTask = new UserTask();
 
-            userTask.setTaskID(1);
+            userTask.setTaskID(i);
             userTask.setAssignedUserID(1);
             userTask.setTitle("Test title " + String.valueOf(i));
             userTask.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
@@ -94,7 +94,7 @@ public class MyUtils {
 
             UserTask userTask1 = new UserTask();
 
-            userTask1.setTaskID(1);
+            userTask1.setTaskID(i + 1);
             userTask1.setAssignedUserID(1);
             userTask1.setTitle("Test title " + String.valueOf(i + 1));
             userTask1.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
@@ -118,7 +118,7 @@ public class MyUtils {
 
             UserTask userTask = new UserTask();
 
-            userTask.setTaskID(1);
+            userTask.setTaskID(i);
             userTask.setAssignedUserID(1);
             userTask.setTitle("Test title " + String.valueOf(i));
             userTask.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
@@ -132,7 +132,7 @@ public class MyUtils {
 
             UserTask userTask1 = new UserTask();
 
-            userTask1.setTaskID(1);
+            userTask1.setTaskID(i + 1);
             userTask1.setAssignedUserID(1);
             userTask1.setTitle("Test title " + String.valueOf(i + 1));
             userTask1.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
@@ -156,7 +156,7 @@ public class MyUtils {
 
             UserTask userTask = new UserTask();
 
-            userTask.setTaskID(1);
+            userTask.setTaskID(i);
             userTask.setAssignedUserID(1);
             userTask.setTitle("Test title " + String.valueOf(i));
             userTask.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
@@ -170,7 +170,7 @@ public class MyUtils {
 
             UserTask userTask1 = new UserTask();
 
-            userTask1.setTaskID(1);
+            userTask1.setTaskID(i+1);
             userTask1.setAssignedUserID(1);
             userTask1.setTitle("Test title " + String.valueOf(i + 1));
             userTask1.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");

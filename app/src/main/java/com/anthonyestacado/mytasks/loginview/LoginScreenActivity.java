@@ -9,7 +9,7 @@ import android.widget.Button;
 import com.anthonyestacado.mytasks.R;
 import com.anthonyestacado.mytasks.tasksview.activity.TasksActivity;
 
-public class LoginScreenInterfaceActivity extends AppCompatActivity implements LoginScreenInterface, View.OnClickListener {
+public class LoginScreenActivity extends AppCompatActivity implements LoginScreenInterface, View.OnClickListener {
 
     LoginScreenPresenterInterface presenter;
 

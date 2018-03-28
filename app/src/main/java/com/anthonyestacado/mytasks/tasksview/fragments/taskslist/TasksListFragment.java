@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.graphics.Movie;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.anthonyestacado.mytasks.R;
 import com.anthonyestacado.mytasks.model.MyUtils;
@@ -75,30 +77,50 @@ public class TasksListFragment extends Fragment  {
         }
 
         recyclerView = (RecyclerView) view.findViewById(R.id.userTasksRecyclerView);
-        RecyclerViewAdapter listAdapter = new RecyclerViewAdapter(getActivity().getApplicationContext(), this, userTasksList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(listAdapter);
+
+        //Set adapter with proper onClickListener
+        recyclerView.setAdapter(new MyRecyclerViewAdapter(getActivity(), userTasksList, new MyRecyclerViewAdapter.OnItemClickListener() {
+            @Override public void onItemClick(UserTask userTask) {
+                Toast.makeText(getActivity().getApplicationContext(), "Clicked the card with id: " + userTask.getTaskID(), Toast.LENGTH_SHORT).show();
+
+                //TODO: uncomment this line to launch a task details fragment that is associated with this card
+                //userTasksActivity.loadUserTaskDetailsFragment(userTask.getTaskID());
+            }
+        }));
 
         //Lock the collapsing toolbar in the parent activity
         recyclerView.setNestedScrollingEnabled(false);
 
-        ((TasksActivity) getActivity()).setToolbarTitle(userTasksSelectionCriteria);
+
+        userTasksActivity.setFabEditEnabled(false);
+        userTasksActivity.setFabAddEnabled(true);
+        getActivity().setTitle(userTasksSelectionCriteria);
+
+        userTasksActivity.setAppBarOpened(false);
+
         return view;
     }
 
-    public void loadUserTasksDetailsFragment(int userTaskID) {
-        userTasksActivity.loadUserTaskDetailsFragment(userTaskID);
-    }
 
     @Override
     public void onResume() {
         super.onResume();
 
+        userTasksActivity.setFabEditEnabled(false);
+        userTasksActivity.setFabAddEnabled(true);
+        userTasksActivity.setAppBarOpened(false);
+
         //Lock the collapsing toolbar in the parent activity
         recyclerView.setNestedScrollingEnabled(false);
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+
+    }
 }

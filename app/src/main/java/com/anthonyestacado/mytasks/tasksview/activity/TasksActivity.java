@@ -1,11 +1,11 @@
 package com.anthonyestacado.mytasks.tasksview.activity;
 
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -17,18 +17,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.anthonyestacado.mytasks.tasksview.fragments.usertaskeditor.EditUserTaskFragment;
 import com.anthonyestacado.mytasks.R;
-import com.anthonyestacado.mytasks.ScrollingActivity;
 import com.anthonyestacado.mytasks.tasksview.fragments.taskslist.TasksListFragment;
 import com.anthonyestacado.mytasks.tasksview.fragments.usertaskdetails.UserTaskDetailsFragment;
 
 public class TasksActivity extends AppCompatActivity
-                            implements NavigationView.OnNavigationItemSelectedListener, TasksActivityInterface {
+                           implements NavigationView.OnNavigationItemSelectedListener,
+                                      TasksActivityInterface {
 
+    private AppBarLayout appBarLayout;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
     private Toolbar toolbar;
+
+    private DrawerLayout drawer;
+    private ActionBarDrawerToggle toggle;
+    private NavigationView navigationView;
+
+    private FloatingActionButton fabAddNewTask;
+    private FloatingActionButton fabEditTask;
+    private FloatingActionButton fabSaveTask;
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,45 +50,110 @@ public class TasksActivity extends AppCompatActivity
         //Set up toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbarLayout.setTitleEnabled(true);
 
-        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar) ;
+        setBackButtonOnToolbarEnabled(false);
+
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+
+        appBarLayout = (AppBarLayout) findViewById(R.id.app_bar) ;
         appBarLayout.setExpanded(false,true);
+        setAppBarOpened(false);
 
-        //Set up fab
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        //Set up fabs
+        fabAddNewTask = (FloatingActionButton) findViewById(R.id.fab_add_task);
+        fabAddNewTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadEditUserTaskFragment(0);
+            }
+        });
+
+
+        fabEditTask = (FloatingActionButton) findViewById(R.id.fab_edit_task);
+        fabEditTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
+        setFabEditEnabled(false);
 
+        fabSaveTask = (FloatingActionButton) findViewById(R.id.fab_save_task);
+        fabSaveTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+        setFabSaveEnabled(false);
 
         //Set up navigation drawer
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        setDrawerEnabled(true);
 
         //load default fragment
         loadUserTasksListFragmentByCriteria(getResources().getString(R.string.title_all_tasks));
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+
+        setFabEditEnabled(false);
+        setFabSaveEnabled(false);
+
+        lockToolbar();
+        setAppBarOpened(false);
+
+        setBackButtonOnToolbarEnabled(false);
+
+        setDrawerEnabled(true);
+    }
+
+    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        int fragments = getFragmentManager().getBackStackEntryCount();
+
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (getSupportFragmentManager().findFragmentByTag("task editor") instanceof EditUserTaskFragment) {
+                getSupportFragmentManager().popBackStack();
+            } else {
+                if (getSupportFragmentManager().findFragmentByTag("task details") instanceof UserTaskDetailsFragment) {
+                    getSupportFragmentManager().popBackStack();
+                } else {
+                    if ((fragments - 1) == 0) {
+                        finish();
+                    } else {
+                        if (fragments - 1 > 1) {
+                            getFragmentManager().popBackStack();
+                        } else {
+                            if (fragments - 1  == 1) {
+                                Toast toast = Toast.makeText(this, R.string.toast_leave_on_backpress, Toast.LENGTH_LONG);
+                                toast.show();
+                                getFragmentManager().popBackStack();
+                            } else {
+                                super.onBackPressed();
+                            }
+                        }
+                    }
+                }
+            }
         }
+
     }
 
     @Override
@@ -103,24 +179,10 @@ public class TasksActivity extends AppCompatActivity
             case R.id.action_settings: {
                 return true;
             }
-            case R.id.action_testScrollingActivity: {
-                Intent intent = new Intent(this, ScrollingActivity.class);
-                startActivity(intent);
-                return true;
-            }
             case R.id.action_testFragmentTaskDetails: {
                 UserTaskDetailsFragment detailsFragment = new UserTaskDetailsFragment();
                 getSupportFragmentManager().beginTransaction()
-                        .add(R.id.fragment_container, detailsFragment).addToBackStack(null).commit();
-
-//                FragmentManager fragmentManager = getFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//
-//                //Start fragment
-//                fragmentTransaction.add(R.id.fragment_container, detailsFragment);
-//                fragmentTransaction.addToBackStack(null);
-//                fragmentTransaction.commit();
-
+                        .add(R.id.fragment_container, detailsFragment, "task details").addToBackStack(null).commit();
                 return true;
             }
         }
@@ -170,23 +232,39 @@ public class TasksActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    public void setDrawerEnabled(boolean flag) {
+        int lockMode = flag ? DrawerLayout.LOCK_MODE_UNLOCKED :
+                DrawerLayout.LOCK_MODE_LOCKED_CLOSED;
+        drawer.setDrawerLockMode(lockMode);
+        toggle.setDrawerIndicatorEnabled(flag);
+    }
+
+    @Override
+    public void setBackButtonOnToolbarEnabled(boolean flag) {
+        if (flag) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        } else {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
+    }
+
+    @Override
     public void loadUserTasksListFragmentByCriteria(String criteria) {
         //Initialize fragment
         TasksListFragment userTasksFragment = new TasksListFragment();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        //Send a parameters which is used in a fragment to determine what type of tasks it must load
+                //Send a parameters which is used in a fragment to determine what type of tasks it must load
         Bundle bundleForFragment = new Bundle();
         bundleForFragment.putString("criteria", criteria);
         userTasksFragment.setArguments(bundleForFragment);
 
-        //Start fragment
-        fragmentTransaction.add(R.id.fragment_container, userTasksFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .add(R.id.fragment_container, userTasksFragment).addToBackStack(null).commit();
     }
 
+    @Override
     public void loadUserTaskDetailsFragment(int userTaskID) {
         UserTaskDetailsFragment detailsFragment = new UserTaskDetailsFragment();
 
@@ -195,28 +273,109 @@ public class TasksActivity extends AppCompatActivity
         detailsFragment.setArguments(bundleForFragment);
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, detailsFragment).addToBackStack(null).commit();
+                .add(R.id.fragment_container, detailsFragment, "task details").addToBackStack(null).commit();
 
-   }
-
-    private void clearFragmentContainer() {
-        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.fragment_container);
-        frameLayout.removeAllViewsInLayout();
     }
 
-    public void setToolbarTitle(String toolbarTitle) {
-        getSupportActionBar().setTitle(toolbarTitle);
+    @Override
+    public void loadEditUserTaskFragment(int userTaskID) {
+        EditUserTaskFragment editorFragment = new EditUserTaskFragment();
+
+        Bundle bundleForFragment = new Bundle();
+        bundleForFragment.putInt("id", userTaskID);
+        editorFragment.setArguments(bundleForFragment);
+
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, editorFragment, "task editor").addToBackStack(null).commit();
+    }
+
+    @Override
+    public void setHomeAsUpEnabled(boolean flag) {
+        if (flag) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        } else {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
+    }
+
+    @Override
+    public void setFabAddEnabled(boolean flag){
+        if (flag) {
+            fabAddNewTask.show();
+        } else {
+            fabAddNewTask.hide();
+        }
+
+    }
+
+    @Override
+    public void setFabEditEnabled(boolean flag) {
+        if (flag) {
+            fabEditTask.show();
+        } else {
+            fabEditTask.hide();
+        }
+
+    }
+
+    @Override
+    public void setFabSaveEnabled(boolean flag) {
+        if (flag) {
+            fabSaveTask.show();
+        } else {
+            fabSaveTask.hide();
+        }
+
     }
 
     @Override
     public void expandToolbar() {
-        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar) ;
         appBarLayout.setExpanded(true,true);
     }
 
     @Override
     public void lockToolbar() {
-        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar) ;
         appBarLayout.setExpanded(false,true);
     }
+
+    @Override
+    public void setToolbarTitle(String toolbarTitle) {
+        collapsingToolbarLayout.setTitleEnabled(false);
+        toolbar.setTitle(toolbarTitle);
+    }
+
+    @Override
+    public void setAppBarOpened(boolean flag) {
+        if (flag) {
+            appBarLayout.setExpanded(true, true);
+            appBarLayout.setActivated(true);
+
+            CoordinatorLayout.LayoutParams params =(CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
+
+            params.height = (int) getResources().getDimension(R.dimen.app_bar_expanded_height);
+            appBarLayout.setLayoutParams(params);
+            collapsingToolbarLayout.setTitleEnabled(true);
+        } else {
+            CoordinatorLayout.LayoutParams params =(CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
+
+            appBarLayout.setExpanded(false, true);
+            appBarLayout.setActivated(false);
+
+            params.height = (int) getResources().getDimension(R.dimen.app_bar_collapsed_height);
+
+            if (params != null) {
+                AppBarLayout.Behavior behavior = new AppBarLayout.Behavior();
+                behavior.setDragCallback(new AppBarLayout.Behavior.DragCallback() {
+                    @Override
+                    public boolean canDrag(@NonNull AppBarLayout appBarLayout) {
+                        return false;
+                    }
+                });
+                params.setBehavior(behavior);
+                appBarLayout.setLayoutParams(params);
+                collapsingToolbarLayout.setTitleEnabled(false);
+            }
+        }
+    }
+
 }

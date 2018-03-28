@@ -11,13 +11,11 @@
         android:layout_gravity="center"
         android:background="?android:attr/selectableItemBackground"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardElevation="4dp"
         android:stateListAnimator="@transition/lift_on_touch"
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintStart_toStartOf="parent">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -42,6 +40,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/task_title_template"
+                android:visibility="visible"
                 app:layout_constraintStart_toEndOf="@+id/imageViewStatus"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,8 +51,9 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="4dp"
-                android:text="@string/task_description"
                 android:maxLines="3"
+                android:text="@string/task_description"
+                android:visibility="visible"
                 app:layout_constraintEnd_toStartOf="@+id/textViewDueDate"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageViewStatus"
@@ -78,6 +78,7 @@
                 android:layout_marginTop="4dp"
                 android:text="@string/task_time"
                 android:textAlignment="textEnd"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewDueDate" />
         </android.support.constraint.ConstraintLayout>

@@ -1,58 +1,44 @@
 package com.anthonyestacado.mytasks.tasksview.fragments.taskslist;
 
-import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.anthonyestacado.mytasks.R;
 import com.anthonyestacado.mytasks.model.MyUtils;
 import com.anthonyestacado.mytasks.model.User;
 import com.anthonyestacado.mytasks.model.UserTask;
-import com.anthonyestacado.mytasks.tasksview.fragments.usertaskdetails.UserTaskDetailsFragment;
 
 import java.util.List;
 
-import static com.anthonyestacado.mytasks.model.SQLiteDBHelper.context;
-
 /**
- * Created by Anthony Kontsevoy on 12.03.2018.
+ * Created by Anthony Kontsevoy on 23.03.2018.
  */
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<UserTaskCardViewHolder> {
+public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
-    //Needed to inflate the layout
-    private Context context;
+    protected List<UserTask> userTaskList;
+    protected Context context;
 
-    //Fragment which uses this adapter
-    private TasksListFragment fragment;
-
-    //Stores th list of all user tasks
-    private List<UserTask> userTasksList;
-
-    public RecyclerViewAdapter(Context context, TasksListFragment fragment, List<UserTask> userTasksList) {
+    public Adapter(Context context, List<UserTask> userTaskList) {
         this.context = context;
-        this.fragment = fragment;
-        this.userTasksList = userTasksList;
+        this.userTaskList = userTaskList;
     }
 
     @Override
-    public UserTaskCardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        //Inflating and returning our view holder
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.recycler_view_task_card, null);
-        return new UserTaskCardViewHolder(view);
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.recycler_view_task_card, parent, false);
+        return new ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(UserTaskCardViewHolder holder, int position) {
-        //Getting the product of the specified position
-        UserTask userTask = userTasksList.get(position);
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        UserTask userTask = userTaskList.get(position);
 
         //Binding the data with the ViewHolder views
         holder.userTaskTitle.setText(userTask.getTitle());
@@ -61,7 +47,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<UserTaskCardViewHo
         //Splitting the due date to show it on the card the way we want it
         String date = MyUtils.selectOnlyDateFromString(userTask.getDueDate());
         String time = MyUtils.selectOnlyTimeFromString(userTask.getDueDate());
-
         holder.userTaskDueDate.setText(date);
         holder.userTaskDueTime.setText(time);
 
@@ -82,17 +67,29 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<UserTaskCardViewHo
                 holder.statusImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_all_tasks));
             }
         }
-
-    }
-
-    public void loadUserTasksDetailsFragment(int userTaskID) {
-        fragment.loadUserTasksDetailsFragment(userTaskID);
     }
 
     @Override
     public int getItemCount() {
-        return userTasksList.size();
+        return userTaskList.size();
     }
 
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
+        public ImageView statusImage;
+        public TextView userTaskTitle;
+        public TextView userTaskDescription;
+        public TextView userTaskDueDate;
+        public TextView userTaskDueTime;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+
+            statusImage = (ImageView) itemView.findViewById(R.id.imageViewStatus);
+            userTaskTitle = (TextView) itemView.findViewById(R.id.textViewTitle);
+            userTaskDescription = (TextView) itemView.findViewById(R.id.textViewDescription);
+            userTaskDueDate = (TextView) itemView.findViewById(R.id.textViewDueDate);
+            userTaskDueTime = (TextView) itemView.findViewById(R.id.textViewDueTime);
+        }
+    }
 }
