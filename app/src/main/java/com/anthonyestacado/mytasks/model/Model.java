@@ -1,12 +1,14 @@
 package com.anthonyestacado.mytasks.model;
 
+import com.anthonyestacado.mytasks.common.Tasks;
+
 import java.util.List;
 
 /**
  * Created by Anthony Kontsevoy on 06.03.2018.
  */
 
-public class Model implements Modelnterface {
+public class Model implements ModelInterface {
 
     private static Model modelInstance;
 
@@ -73,9 +75,9 @@ public class Model implements Modelnterface {
     }
 
     @Override
-    public List<UserTask> getTasks(int selectionModeID) {
+    public List<UserTask> getTasks(Tasks selectionMode) {
 
-        return sqliteRepo.getUserTasks(selectionModeID);
+        return sqliteRepo.getUserTasks(selectionMode);
     }
 
     //TODO: this method is a part of Phase 2 of the task manager task

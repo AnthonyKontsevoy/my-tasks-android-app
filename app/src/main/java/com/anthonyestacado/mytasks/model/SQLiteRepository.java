@@ -1,8 +1,9 @@
 package com.anthonyestacado.mytasks.model;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
+
+import com.anthonyestacado.mytasks.common.Tasks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,42 +99,122 @@ public class SQLiteRepository  implements RepositoryInterface {
                 cursor.getString(7)
         );
 
+        cursor.close();
+
         return userTask;
     }
 
     //This method is used to get a list of tasks based on the selection mode
     //where 0 = all tasks, 1 - in progress, 2 - done
     @Override
-    public List<UserTask> getUserTasks(int selection_mode) {
+    public List<UserTask> getUserTasks(Tasks selectionMode) {
 
         List<UserTask> userTasksList = new ArrayList<UserTask>();
 
         //Define queries for each selection mode (all tasks, in progress or done)
         String selectQuery = "";
-        switch(selection_mode) {
+
+        Cursor cursor;
+
+        switch(selectionMode) {
             //All tasks
-            case 0: {
-                selectQuery = "SELECT  * FROM " + SQLiteDBHelper.TABLE_TASKS;
+            case ALL: {
+//                selectQuery = "SELECT * FROM " + SQLiteDBHelper.TABLE_TASKS;
+                cursor = database.getWritableDatabase().query(
+                        false,
+                        SQLiteDBHelper.TABLE_TASKS,
+                        new String[] {
+                                SQLiteDBHelper.KEY_TASK_ID,
+                                SQLiteDBHelper.KEY_ASSIGNED_USER_ID,
+                                SQLiteDBHelper.KEY_TASK_TITLE,
+                                SQLiteDBHelper.KEY_TASK_DESCRIPTION,
+                                SQLiteDBHelper.KEY_TASK_STATUS,
+                                SQLiteDBHelper.KEY_TASK_DUE_DATE,
+                                SQLiteDBHelper.KEY_TASK_HAS_NOTIFICATION,
+                                SQLiteDBHelper.KEY_TASK_REPEAT_MODE
+                        },
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null);
                 break;
             }
 
             //In progress
-            case 1:{
-                selectQuery = "SELECT  * FROM " + SQLiteDBHelper.TABLE_TASKS + " WHERE " + SQLiteDBHelper.KEY_TASK_STATUS + " = false";
+            case IN_PROGRESS:{
+//                selectQuery = "SELECT * FROM " + SQLiteDBHelper.TABLE_TASKS + " WHERE " + SQLiteDBHelper.KEY_TASK_STATUS + " = FALSE";
+                cursor = database.getWritableDatabase().query(
+                        false,
+                        SQLiteDBHelper.TABLE_TASKS,
+                        new String[] {
+                                SQLiteDBHelper.KEY_TASK_ID,
+                                SQLiteDBHelper.KEY_ASSIGNED_USER_ID,
+                                SQLiteDBHelper.KEY_TASK_TITLE,
+                                SQLiteDBHelper.KEY_TASK_DESCRIPTION,
+                                SQLiteDBHelper.KEY_TASK_STATUS,
+                                SQLiteDBHelper.KEY_TASK_DUE_DATE,
+                                SQLiteDBHelper.KEY_TASK_HAS_NOTIFICATION,
+                                SQLiteDBHelper.KEY_TASK_REPEAT_MODE
+                        },
+                        SQLiteDBHelper.KEY_TASK_STATUS + " = 0",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null);
                 break;
             }
 
             //Done tasks
-            case 2: {
-                selectQuery = "SELECT  * FROM " + SQLiteDBHelper.TABLE_TASKS + " WHERE " + SQLiteDBHelper.KEY_TASK_STATUS + " = true";
+            case DONE: {
+//                selectQuery = "SELECT * FROM " + SQLiteDBHelper.TABLE_TASKS + " WHERE " + SQLiteDBHelper.KEY_TASK_STATUS + " = TRUE";
+                cursor = database.getWritableDatabase().query(
+                        false,
+                        SQLiteDBHelper.TABLE_TASKS,
+                        new String[] {
+                                SQLiteDBHelper.KEY_TASK_ID,
+                                SQLiteDBHelper.KEY_ASSIGNED_USER_ID,
+                                SQLiteDBHelper.KEY_TASK_TITLE,
+                                SQLiteDBHelper.KEY_TASK_DESCRIPTION,
+                                SQLiteDBHelper.KEY_TASK_STATUS,
+                                SQLiteDBHelper.KEY_TASK_DUE_DATE,
+                                SQLiteDBHelper.KEY_TASK_HAS_NOTIFICATION,
+                                SQLiteDBHelper.KEY_TASK_REPEAT_MODE
+                        },
+                        SQLiteDBHelper.KEY_TASK_STATUS + " = 1",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null);
                 break;
             }
                 //Default query which returns all tasks
-            default: selectQuery = "SELECT  * FROM " + SQLiteDBHelper.TABLE_TASKS;
+            default: {
+//                selectQuery = "SELECT * FROM " + SQLiteDBHelper.TABLE_TASKS;
+                cursor = database.getWritableDatabase().query(
+                        false,
+                        SQLiteDBHelper.TABLE_TASKS,
+                        new String[] {
+                                SQLiteDBHelper.KEY_TASK_ID,
+                                SQLiteDBHelper.KEY_ASSIGNED_USER_ID,
+                                SQLiteDBHelper.KEY_TASK_TITLE,
+                                SQLiteDBHelper.KEY_TASK_DESCRIPTION,
+                                SQLiteDBHelper.KEY_TASK_STATUS,
+                                SQLiteDBHelper.KEY_TASK_DUE_DATE,
+                                SQLiteDBHelper.KEY_TASK_HAS_NOTIFICATION,
+                                SQLiteDBHelper.KEY_TASK_REPEAT_MODE
+                        },
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null);
+            }
         }
-
-        //Prepare the database for inserting data
-        Cursor cursor = database.getWritableDatabase().rawQuery(selectQuery, null);
 
         //Looping through all rows and adding data to the list
         if (cursor.moveToFirst()) {
@@ -155,6 +236,8 @@ public class SQLiteRepository  implements RepositoryInterface {
 
             } while (cursor.moveToNext());
         }
+
+        cursor.close();
 
         return userTasksList;
     }

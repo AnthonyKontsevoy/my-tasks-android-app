@@ -2,6 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".views.tasksview.fragments.usertaskeditor.EditUserTaskFragment"
     android:id="@+id/scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -27,26 +28,52 @@
             tools:context=".views.tasksview.fragments.usertaskdetails.UserTaskDetailsFragment">
 
             <ImageView
-                android:id="@+id/taskDetailsImageView"
+                android:id="@+id/taskTitleImageView"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:src="@drawable/ic_task_descr"
+                android:src="@drawable/ic_task_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/taskDetailsTextView"
+            <EditText
+                android:id="@+id/taskTitleEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="@string/hint_enter_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.263"
+                app:layout_constraintStart_toEndOf="@+id/taskTitleImageView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/taskDetailsImageView"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/ic_task_descr"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/taskTitleEditText" />
+
+            <EditText
+                android:id="@+id/taskDescriptionEditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/task_description"
+                android:ems="10"
+                android:hint="@string/hint_enter_description"
+                android:inputType="textMultiLine"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/taskDetailsImageView"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/taskTitleEditText" />
 
             <ImageView
                 android:id="@+id/taskDueDateImageView"
@@ -56,68 +83,77 @@
                 android:layout_marginTop="24dp"
                 android:src="@drawable/ic_calendar_clock"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/taskDetailsTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/taskDescriptionEditText" />
 
             <TextView
-                android:id="@+id/taskDueDateTextView"
-                android:layout_width="0dp"
-                android:layout_height="21dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:text="Mar 30 2018, 23:59"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/taskDueDateImageView"
-                app:layout_constraintTop_toBottomOf="@+id/taskDetailsTextView" />
-
-            <ImageView
-                android:id="@+id/taskRepeatModeImageView"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:src="@drawable/ic_cached"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/taskDueDateTextView" />
-
-            <TextView
-                android:id="@+id/taskRepeadtModeTextView"
+                android:id="@+id/taskDueDateEditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
-                android:text="Repeat every week"
+                android:ems="10"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="@string/pick_date_and_time"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/taskRepeatModeImageView"
-                app:layout_constraintTop_toBottomOf="@+id/taskDueDateTextView" />
+                app:layout_constraintHorizontal_bias="0.666"
+                app:layout_constraintStart_toEndOf="@+id/taskDueDateImageView"
+                app:layout_constraintTop_toBottomOf="@+id/taskDescriptionEditText" />
 
             <ImageView
                 android:id="@+id/taskNotificationImageView"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginBottom="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:src="@drawable/ic_notification_bell"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/taskDueDateEditText" />
+
+            <ImageView
+                android:id="@+id/taskRepeatModeImageView"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/ic_cached"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/taskRepeadtModeTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/notificationSwitch" />
 
-            <TextView
-                android:id="@+id/taskNotificationTextView"
+            <Spinner
+                android:id="@+id/repeatModeSpinner"
                 android:layout_width="0dp"
-                android:layout_height="19dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
-                android:text="Has notification"
+                android:entries="@array/repeat_mode"
+                android:textAlignment="viewStart"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/taskRepeatModeImageView"
+                app:layout_constraintTop_toBottomOf="@+id/notificationSwitch" />
+
+            <Switch
+                android:id="@+id/notificationSwitch"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:checked="false"
+                android:text="@string/set_notification"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/taskNotificationImageView"
-                app:layout_constraintTop_toBottomOf="@+id/taskRepeadtModeTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/taskDueDateEditText" />
+
 
         </android.support.constraint.ConstraintLayout>
 
