@@ -1,4 +1,5 @@
 package com.anthonyestacado.mytasks.model;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -47,29 +48,57 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
 
         //define and run the SQL script to initialize TABLE_TASKS
         String CREATE_TABLE_TASKS =
-                "CREATE TABLE " + TABLE_TASKS +
+                "CREATE TABLE " + TABLE_TASKS + " " +
                         "("
-                            + KEY_TASK_ID + " INTEGER PRIMARY KEY,"
-                            + KEY_ASSIGNED_USER_ID + " INTEGER"
-                            + KEY_TASK_TITLE + " TEXT"
-                            + KEY_TASK_DESCRIPTION + " TEXT"
-                            + KEY_TASK_STATUS + " INTEGER"
-                            + KEY_TASK_DUE_DATE + " TEXT"
-                            + KEY_TASK_HAS_NOTIFICATION + "INTEGER"
-                            + KEY_TASK_REPEAT_MODE + "TEXT" +
+                            + KEY_TASK_ID + " INTEGER PRIMARY KEY, "
+                            + KEY_ASSIGNED_USER_ID + " INTEGER, "
+                            + KEY_TASK_TITLE + " TEXT, "
+                            + KEY_TASK_DESCRIPTION + " TEXT, "
+                            + KEY_TASK_STATUS + " INTEGER, "
+                            + KEY_TASK_DUE_DATE + " TEXT, "
+                            + KEY_TASK_HAS_NOTIFICATION + " INTEGER, "
+                            + KEY_TASK_REPEAT_MODE + " TEXT" +
                         ")";
         sqLiteDatabase.execSQL(CREATE_TABLE_TASKS);
 
         //define and run the SQL script to initialize TABLE_USERS
         String CREATE_TABLE_USERS =
-                "CREATE TABLE " + TABLE_USERS +
+                "CREATE TABLE " + TABLE_USERS + " " +
                         "("
-                            + KEY_ENTRY_ID + " INTEGER PRIMARY KEY,"
-                            + KEY_USER_ID + "INTEGER"
-                            + KEY_USER_LOGIN + " TEXT"
+                            + KEY_ENTRY_ID + " INTEGER PRIMARY KEY, "
+                            + KEY_USER_ID + " INTEGER, "
+                            + KEY_USER_LOGIN + " TEXT, "
                             + KEY_USER_PASSWORD + " TEXT" +
                         ")";
         sqLiteDatabase.execSQL(CREATE_TABLE_USERS);
+
+//        //Inserting tasks with status "In progress"
+        for (int i = 0; i < 4; i++) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(KEY_ASSIGNED_USER_ID, String.valueOf(1));
+            contentValues.put(KEY_TASK_TITLE, "Test title " + String.valueOf(i));
+            contentValues.put(KEY_TASK_DESCRIPTION, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
+                    "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
+            contentValues.put(KEY_TASK_STATUS, String.valueOf(0));
+            contentValues.put(KEY_TASK_DUE_DATE, "2018-03-30 23:59:06");
+            contentValues.put(KEY_TASK_HAS_NOTIFICATION, String.valueOf(0));
+            contentValues.put(KEY_TASK_REPEAT_MODE, "Never");
+            sqLiteDatabase.insert(SQLiteDBHelper.TABLE_TASKS, null, contentValues);
+        }
+
+        //Inserting tasks with status "Done"
+        for (int i = 4; i < 6; i++) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(KEY_ASSIGNED_USER_ID, String.valueOf(1));
+            contentValues.put(KEY_TASK_TITLE, "Test title " + String.valueOf(i));
+            contentValues.put(KEY_TASK_DESCRIPTION, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
+                    "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
+            contentValues.put(KEY_TASK_STATUS, String.valueOf(1));
+            contentValues.put(KEY_TASK_DUE_DATE, "2018-03-30 23:59:06");
+            contentValues.put(KEY_TASK_HAS_NOTIFICATION, String.valueOf(0));
+            contentValues.put(KEY_TASK_REPEAT_MODE, "Never");
+            sqLiteDatabase.insert(SQLiteDBHelper.TABLE_TASKS, null, contentValues);
+        }
     }
 
     //This method is called every time when you want to make changes to the database schema

@@ -35,6 +35,12 @@
     <string name="title_activity_scrolling">ScrollingActivity</string>
 
     <string name="toast_leave_on_backpress">Press back button once more to leave the app</string>
+    <string name="pick_date_and_time">Pick date and time</string>
+    <string name="set_notification">Set notification</string>
+    <string name="new_task">New task</string>
+
+    <string name="hint_enter_title">Enter title</string>
+    <string name="hint_enter_description">Enter description</string>
 
     <string-array name="repeat_mode">
         <item>Repeat daily</item>

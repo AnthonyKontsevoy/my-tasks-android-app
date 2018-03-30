@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.anthonyestacado.mytasks.tasksview.fragments.usertaskeditor.EditUserTaskFragment"
+    tools:context=".views.tasksview.fragments.usertaskeditor.EditUserTaskFragment"
     android:id="@+id/scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,7 +25,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:context="com.anthonyestacado.mytasks.tasksview.fragments.usertaskdetails.UserTaskDetailsFragment">
+            tools:context=".views.tasksview.fragments.usertaskdetails.UserTaskDetailsFragment">
 
             <ImageView
                 android:id="@+id/taskTitleImageView"
@@ -43,8 +43,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:ems="10"
+                android:hint="@string/hint_enter_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.263"
                 app:layout_constraintStart_toEndOf="@+id/taskTitleImageView"
@@ -66,8 +67,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:ems="10"
+                android:hint="@string/hint_enter_description"
                 android:inputType="textMultiLine"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/taskDetailsImageView"
@@ -83,14 +85,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/taskDescriptionEditText" />
 
-            <EditText
+            <TextView
                 android:id="@+id/taskDueDateEditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:ems="10"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="@string/pick_date_and_time"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.666"
                 app:layout_constraintStart_toEndOf="@+id/taskDueDateImageView"
@@ -109,26 +116,14 @@
             <ImageView
                 android:id="@+id/taskRepeatModeImageView"
                 android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:src="@drawable/ic_cached"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/taskRepeatModeEditText" />
-
-            <EditText
-                android:id="@+id/taskRepeatModeEditText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:ems="10"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/taskNotificationImageView"
-                app:layout_constraintTop_toBottomOf="@+id/taskDueDateEditText" />
+                app:layout_constraintTop_toBottomOf="@+id/notificationSwitch" />
 
             <Spinner
                 android:id="@+id/repeatModeSpinner"
@@ -139,10 +134,25 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:entries="@array/repeat_mode"
+                android:textAlignment="viewStart"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/taskRepeatModeImageView"
-                app:layout_constraintTop_toBottomOf="@+id/taskRepeatModeEditText" />
+                app:layout_constraintTop_toBottomOf="@+id/notificationSwitch" />
+
+            <Switch
+                android:id="@+id/notificationSwitch"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:checked="false"
+                android:text="@string/set_notification"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/taskNotificationImageView"
+                app:layout_constraintTop_toBottomOf="@+id/taskDueDateEditText" />
 
 
         </android.support.constraint.ConstraintLayout>

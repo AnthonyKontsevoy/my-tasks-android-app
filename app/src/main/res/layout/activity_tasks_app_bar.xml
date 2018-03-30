@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/mainActivity"
-    tools:context="com.anthonyestacado.mytasks.tasksview.activity.TasksActivity">
+    tools:context=".views.tasksview.activity.TasksActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
