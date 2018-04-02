@@ -1,6 +1,7 @@
 package com.anthonyestacado.mytasks.model;
 
-import com.anthonyestacado.mytasks.common.Tasks;
+import com.anthonyestacado.mytasks.common.RepeatMode;
+import com.anthonyestacado.mytasks.common.TaskStatuses;
 
 import java.util.List;
 
@@ -30,30 +31,32 @@ public class Model implements ModelInterface {
     }
 
     @Override
-    public int createTask(String title, String description, int status, String dueDate, String repeatMode) {
+    public int createTask(String title, String description, String dueDate, int hasNotification, RepeatMode repeatMode) {
 
         UserTask userTask = new UserTask();
         userTask.setAssignedUserID(currentUser.getUserID());
         userTask.setTitle(title);
         userTask.setDescription(description);
-        userTask.setStatus(status);
+        userTask.setStatus(0);
         userTask.setDueDate(dueDate);
-        userTask.setRepeatMode(repeatMode);
+        userTask.setHasNotificationAlert(hasNotification);
+        userTask.setRepeatMode(repeatMode.getRepeatMode());
 
         sqliteRepo.saveUserTask(userTask);
+
         return 0;
     }
 
     @Override
-    public int editTask(int userTaskID, String title, String description, int status, String dueDate, String repeatMode) {
+    public int editTask(int userTaskID, String title, String description, String dueDate, TaskStatuses status, int hasNotification, RepeatMode repeatMode) {
 
         UserTask userTask = new UserTask();
         userTask.setAssignedUserID(currentUser.getUserID());
         userTask.setTitle(title);
         userTask.setDescription(description);
-        userTask.setStatus(status);
+        userTask.setStatus(status.getStatus());
         userTask.setDueDate(dueDate);
-        userTask.setRepeatMode(repeatMode);
+        userTask.setRepeatMode(repeatMode.getRepeatMode());
 
         sqliteRepo.updateUserTask(userTask);
 
@@ -75,7 +78,7 @@ public class Model implements ModelInterface {
     }
 
     @Override
-    public List<UserTask> getTasks(Tasks selectionMode) {
+    public List<UserTask> getTasks(TaskStatuses selectionMode) {
 
         return sqliteRepo.getUserTasks(selectionMode);
     }

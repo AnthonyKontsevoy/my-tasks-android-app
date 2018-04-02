@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.anthonyestacado.mytasks.R;
-import com.anthonyestacado.mytasks.common.Tasks;
+import com.anthonyestacado.mytasks.common.TaskStatuses;
 import com.anthonyestacado.mytasks.model.UserTask;
 import com.anthonyestacado.mytasks.views.tasksview.activity.TasksActivityInterface;
 
@@ -35,6 +35,7 @@ public class TasksListFragment extends Fragment
     private String userTasksSelectionCriteria;
 
     private RecyclerView recyclerView;
+    private MyRecyclerViewAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,22 +58,22 @@ public class TasksListFragment extends Fragment
             switch (userTasksSelectionCriteria) {
                 case "All tasks": {
                     //userTasksList = MyUtils.getListOfAllUserTasks();
-                    userTasksList = presenter.getUserTasksList(Tasks.ALL);
+                    userTasksList = presenter.getUserTasksList(TaskStatuses.ALL);
                     break;
                 }
                 case "In progress": {
                     //userTasksList = MyUtils.getListOfUserTasksInProgress();
-                    userTasksList = presenter.getUserTasksList(Tasks.IN_PROGRESS);
+                    userTasksList = presenter.getUserTasksList(TaskStatuses.IN_PROGRESS);
                     break;
                 }
                 case "Done tasks":{
                     //userTasksList = MyUtils.getListOfDoneUserTasks();
-                    userTasksList = presenter.getUserTasksList(Tasks.DONE);
+                    userTasksList = presenter.getUserTasksList(TaskStatuses.DONE);
                     break;
                 }
                 default: {
                     //userTasksList = MyUtils.getListOfAllUserTasks();
-                    userTasksList = presenter.getUserTasksList(Tasks.ALL);
+                    userTasksList = presenter.getUserTasksList(TaskStatuses.ALL);
                     break;
                 }
             }
@@ -89,14 +90,15 @@ public class TasksListFragment extends Fragment
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         //Set adapter with proper onClickListener
-        recyclerView.setAdapter(new MyRecyclerViewAdapter(getActivity(), userTasksList, new MyRecyclerViewAdapter.OnItemClickListener() {
-            @Override public void onItemClick(UserTask userTask) {
-                Toast.makeText(getActivity().getApplicationContext(), "Clicked the card with id: " + userTask.getTaskID(), Toast.LENGTH_SHORT).show();
+        adapter = new MyRecyclerViewAdapter(getActivity(), userTasksList, new MyRecyclerViewAdapter.OnItemClickListener() {
+                    @Override public void onItemClick(UserTask userTask) {
+                        Toast.makeText(getActivity().getApplicationContext(), "Clicked the card with id: " + userTask.getTaskID(), Toast.LENGTH_SHORT).show();
 
-                //TODO: uncomment this line to launch a task details fragment that is associated with this card
-                //userTasksActivity.loadUserTaskDetailsFragment(userTask.getTaskID());
-            }
-        }));
+                        //TODO: uncomment this line to launch a task details fragment that is associated with this card
+                        //userTasksActivity.loadUserTaskDetailsFragment(userTask.getTaskID());
+                    }
+                });
+        recyclerView.setAdapter(adapter);
 
         //Lock the collapsing toolbar in the parent activity
         recyclerView.setNestedScrollingEnabled(false);
@@ -124,6 +126,7 @@ public class TasksListFragment extends Fragment
 
         //Lock the collapsing toolbar in the parent activity
         recyclerView.setNestedScrollingEnabled(false);
+        adapter.notifyDataSetChanged();
 
     }
 
@@ -144,7 +147,7 @@ public class TasksListFragment extends Fragment
     }
 
     @Override
-    public List<UserTask> getUserTasksList(Tasks selectionMode) {
+    public List<UserTask> getUserTasksList(TaskStatuses selectionMode) {
         return  presenter.getUserTasksList(selectionMode);
     }
 

@@ -38,8 +38,10 @@
 
     <string name="hint_enter_title">Enter title</string>
     <string name="hint_enter_description">Enter description</string>
+    <string name="text_new_task">New task</string>
 
     <string-array name="repeat_mode">
+        <item>Never</item>
         <item>Repeat daily</item>
         <item>Repeat weekly</item>
         <item>Repeat monthly</item>

@@ -1,6 +1,6 @@
 package com.anthonyestacado.mytasks.model;
 
-import com.anthonyestacado.mytasks.common.Tasks;
+import com.anthonyestacado.mytasks.common.TaskStatuses;
 
 import java.util.List;
 
@@ -14,6 +14,6 @@ public interface RepositoryInterface {
     int updateUserTask(UserTask userTask);
     int deleteUserTask(int userTaskID);
     UserTask getUserTaskByID(int userTaskID);
-    List<UserTask> getUserTasks(Tasks selectionMode);
+    List<UserTask> getUserTasks(TaskStatuses selectionMode);
     List<String> validateUserCredentials(String username, String password);
 }

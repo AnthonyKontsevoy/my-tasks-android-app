@@ -78,11 +78,11 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
             contentValues.put(KEY_ASSIGNED_USER_ID, String.valueOf(1));
             contentValues.put(KEY_TASK_TITLE, "Test title " + String.valueOf(i));
             contentValues.put(KEY_TASK_DESCRIPTION, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-                    "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
+                                                    "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
             contentValues.put(KEY_TASK_STATUS, String.valueOf(0));
-            contentValues.put(KEY_TASK_DUE_DATE, "2018-03-30 23:59:06");
+            contentValues.put(KEY_TASK_DUE_DATE, "2018-03-30 23:59");
             contentValues.put(KEY_TASK_HAS_NOTIFICATION, String.valueOf(0));
-            contentValues.put(KEY_TASK_REPEAT_MODE, "Never");
+            contentValues.put(KEY_TASK_REPEAT_MODE, "never");
             sqLiteDatabase.insert(SQLiteDBHelper.TABLE_TASKS, null, contentValues);
         }
 
@@ -92,11 +92,11 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
             contentValues.put(KEY_ASSIGNED_USER_ID, String.valueOf(1));
             contentValues.put(KEY_TASK_TITLE, "Test title " + String.valueOf(i));
             contentValues.put(KEY_TASK_DESCRIPTION, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-                    "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
+                                                    "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
             contentValues.put(KEY_TASK_STATUS, String.valueOf(1));
-            contentValues.put(KEY_TASK_DUE_DATE, "2018-03-30 23:59:06");
+            contentValues.put(KEY_TASK_DUE_DATE, "2018-03-30 23:59");
             contentValues.put(KEY_TASK_HAS_NOTIFICATION, String.valueOf(0));
-            contentValues.put(KEY_TASK_REPEAT_MODE, "Never");
+            contentValues.put(KEY_TASK_REPEAT_MODE, "never");
             sqLiteDatabase.insert(SQLiteDBHelper.TABLE_TASKS, null, contentValues);
         }
     }

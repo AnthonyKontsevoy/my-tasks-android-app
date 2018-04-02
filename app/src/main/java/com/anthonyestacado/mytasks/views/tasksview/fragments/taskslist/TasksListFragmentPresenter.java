@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.anthonyestacado.mytasks.model.Model;
 import com.anthonyestacado.mytasks.model.ModelInterface;
-import com.anthonyestacado.mytasks.common.Tasks;
+import com.anthonyestacado.mytasks.common.TaskStatuses;
 import com.anthonyestacado.mytasks.model.UserTask;
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class TasksListFragmentPresenter implements TasksListFragmentPresenterInt
     }
 
     @Override
-    public List<UserTask> getUserTasksList(Tasks selectionMode) {
+    public List<UserTask> getUserTasksList(TaskStatuses selectionMode) {
         return modelInstance.getTasks(selectionMode);
     }
 

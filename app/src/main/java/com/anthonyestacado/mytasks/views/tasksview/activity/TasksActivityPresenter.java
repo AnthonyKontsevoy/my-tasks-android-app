@@ -2,7 +2,7 @@ package com.anthonyestacado.mytasks.views.tasksview.activity;
 
 import android.content.Context;
 
-import com.anthonyestacado.mytasks.common.Tasks;
+import com.anthonyestacado.mytasks.common.TaskStatuses;
 
 /**
  * Created by Anthony Kontsevoy on 30.03.2018.
@@ -18,7 +18,7 @@ public class TasksActivityPresenter implements TasksActivityPresenterInterface {
     }
 
     @Override
-    public void loadUserTasksListFragment(Tasks criteria) {
+    public void loadUserTasksListFragment(TaskStatuses criteria) {
         activity.loadUserTasksListFragmentByCriteria(criteria);
     }
 

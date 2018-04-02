@@ -3,7 +3,7 @@ package com.anthonyestacado.mytasks.model;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.anthonyestacado.mytasks.common.Tasks;
+import com.anthonyestacado.mytasks.common.TaskStatuses;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,7 +107,7 @@ public class SQLiteRepository  implements RepositoryInterface {
     //This method is used to get a list of tasks based on the selection mode
     //where 0 = all tasks, 1 - in progress, 2 - done
     @Override
-    public List<UserTask> getUserTasks(Tasks selectionMode) {
+    public List<UserTask> getUserTasks(TaskStatuses selectionMode) {
 
         List<UserTask> userTasksList = new ArrayList<UserTask>();
 

@@ -19,7 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.anthonyestacado.mytasks.common.Tasks;
+import com.anthonyestacado.mytasks.common.TaskStatuses;
 import com.anthonyestacado.mytasks.views.tasksview.fragments.usertaskeditor.EditUserTaskFragment;
 import com.anthonyestacado.mytasks.R;
 import com.anthonyestacado.mytasks.views.tasksview.fragments.taskslist.TasksListFragment;
@@ -107,7 +107,7 @@ public class TasksActivity extends AppCompatActivity
         setDrawerEnabled(true);
 
         //load default fragment
-        presenter.loadUserTasksListFragment(Tasks.ALL);
+        presenter.loadUserTasksListFragment(TaskStatuses.ALL);
 
     }
 
@@ -202,15 +202,15 @@ public class TasksActivity extends AppCompatActivity
 
         if (id == R.id.nav_all_tasks) {
 
-            loadUserTasksListFragmentByCriteria(Tasks.ALL);
+            loadUserTasksListFragmentByCriteria(TaskStatuses.ALL);
 
         } else if (id == R.id.nav_tasks_in_progress) {
 
-            loadUserTasksListFragmentByCriteria(Tasks.IN_PROGRESS);
+            loadUserTasksListFragmentByCriteria(TaskStatuses.IN_PROGRESS);
 
         } else if (id == R.id.nav_done_tasks) {
 
-            loadUserTasksListFragmentByCriteria(Tasks.DONE);
+            loadUserTasksListFragmentByCriteria(TaskStatuses.DONE);
 
         } else if (id == R.id.nav_agenda) {
 
@@ -255,7 +255,7 @@ public class TasksActivity extends AppCompatActivity
     }
 
     @Override
-    public void loadUserTasksListFragmentByCriteria(Tasks criteria) {
+    public void loadUserTasksListFragmentByCriteria(TaskStatuses criteria) {
         //Initialize fragment
         TasksListFragment userTasksFragment = new TasksListFragment();
 
@@ -387,4 +387,18 @@ public class TasksActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    public FloatingActionButton getFabAdd() {
+        return fabAddNewTask;
+    }
+
+    @Override
+    public FloatingActionButton getFabEdit() {
+        return fabEditTask;
+    }
+
+    @Override
+    public FloatingActionButton getFabSave() {
+        return fabSaveTask;
+    }
 }
