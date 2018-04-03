@@ -101,7 +101,7 @@ public class MyUtils {
             }
         }
 
-        return stringBuilder.substring(commaPosition + 5, inputString.length() - 1);
+        return stringBuilder.substring(commaPosition + 6, inputString.length());
     }
 
 }

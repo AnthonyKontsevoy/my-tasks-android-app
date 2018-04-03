@@ -82,24 +82,60 @@ public class SQLiteRepository  implements RepositoryInterface {
 
         String selectQuery = "SELECT * FROM " + SQLiteDBHelper.TABLE_TASKS + " WHERE " + SQLiteDBHelper.KEY_TASK_ID + " =  ?" + String.valueOf(userTaskID);
 
-        Cursor cursor = database.getWritableDatabase().rawQuery(selectQuery, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
-        }
+//        Cursor cursor = database.getWritableDatabase().rawQuery(selectQuery, null);
+//        if (cursor != null) {
+//            cursor.moveToFirst();
+//        }
+        Cursor cursor = database.getWritableDatabase().query(
+                true,
+                SQLiteDBHelper.TABLE_TASKS,
+                new String[] {
+                        SQLiteDBHelper.KEY_TASK_ID,
+                        SQLiteDBHelper.KEY_ASSIGNED_USER_ID,
+                        SQLiteDBHelper.KEY_TASK_TITLE,
+                        SQLiteDBHelper.KEY_TASK_DESCRIPTION,
+                        SQLiteDBHelper.KEY_TASK_STATUS,
+                        SQLiteDBHelper.KEY_TASK_DUE_DATE,
+                        SQLiteDBHelper.KEY_TASK_HAS_NOTIFICATION,
+                        SQLiteDBHelper.KEY_TASK_REPEAT_MODE
+                },
+                SQLiteDBHelper.KEY_TASK_ID + " = " + String.valueOf(userTaskID),
+                null,
+                null,
+                null,
+                null,
+                null);
 
         UserTask userTask = new UserTask();
-        userTask.editTask(
-                Integer.parseInt(cursor.getString(0)),
-                Integer.parseInt(cursor.getString(1)),
-                cursor.getString(2),
-                cursor.getString(3),
-                cursor.getInt(4),
-                cursor.getString(5),
-                cursor.getInt(6),
-                cursor.getString(7)
-        );
+        if (cursor.moveToFirst()) {
+
+            userTask.editTask(
+                        Integer.parseInt(cursor.getString(0)),
+                        Integer.parseInt(cursor.getString(1)),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getInt(4),
+                        cursor.getString(5),
+                        cursor.getInt(6),
+                        cursor.getString(7)
+            );
+        }
 
         cursor.close();
+
+//        UserTask userTask = new UserTask();
+//        userTask.editTask(
+//                Integer.parseInt(cursor.getString(0)),
+//                Integer.parseInt(cursor.getString(1)),
+//                cursor.getString(2),
+//                cursor.getString(3),
+//                cursor.getInt(4),
+//                cursor.getString(5),
+//                cursor.getInt(6),
+//                cursor.getString(7)
+//        );
+//
+//        cursor.close();
 
         return userTask;
     }
