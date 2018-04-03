@@ -7,7 +7,7 @@ import com.anthonyestacado.mytasks.common.RepeatMode;
  */
 
 public interface EditUserTaskFragmentInterface {
-    void fillInputFieldsWithData(String title, String description, String dueDate, boolean hasNotification, int repeatMode);
+    void fillInputFieldsWithData(String title, String description, String dueDate, int hasNotification, int repeatMode);
     void makeInputFieldsEmpty();
     void getUserInput();
 }

@@ -92,10 +92,7 @@ public class TasksListFragment extends Fragment
         //Set adapter with proper onClickListener
         adapter = new MyRecyclerViewAdapter(getActivity(), userTasksList, new MyRecyclerViewAdapter.OnItemClickListener() {
                     @Override public void onItemClick(UserTask userTask) {
-                        Toast.makeText(getActivity().getApplicationContext(), "Clicked the card with id: " + userTask.getTaskID(), Toast.LENGTH_SHORT).show();
-
-                        //TODO: uncomment this line to launch a task details fragment that is associated with this card
-                        //userTasksActivity.loadUserTaskDetailsFragment(userTask.getTaskID());
+                        userTasksActivity.loadUserTaskDetailsFragment(userTask.getTaskID());
                     }
                 });
         recyclerView.setAdapter(adapter);

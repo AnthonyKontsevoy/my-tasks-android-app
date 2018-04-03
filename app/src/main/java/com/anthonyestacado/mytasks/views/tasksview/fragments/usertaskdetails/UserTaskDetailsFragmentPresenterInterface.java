@@ -8,6 +8,7 @@ import com.anthonyestacado.mytasks.model.UserTask;
 
 public interface UserTaskDetailsFragmentPresenterInterface {
     void displayUserTaskDetails(int userTaskID);
-    void changeUserTaskStatus();
-    void deleteUserTask();
+    void changeUserTaskStatus(boolean status);
+    void deleteUserTask(int userTaskID);
+    void editUserTask(int userTaskID);
 }

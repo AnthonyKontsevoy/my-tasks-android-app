@@ -42,6 +42,9 @@
     <string name="hint_enter_title">Enter title</string>
     <string name="hint_enter_description">Enter description</string>
     <string name="text_new_task">New task</string>
+    <string name="text_repeat">Repeat </string>
+    <string name="text_has_reminder">Has reminder</string>
+    <string name="text_no_reminder">Doesn\'t have a reminder</string>
 
     <string-array name="repeat_mode">
         <item>Never</item>

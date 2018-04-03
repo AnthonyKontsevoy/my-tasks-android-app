@@ -27,6 +27,7 @@ import org.w3c.dom.Text;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 
@@ -165,7 +166,10 @@ public class EditUserTaskFragment extends Fragment
         hourTmp = cal.get(Calendar.HOUR_OF_DAY);
         minuteTmp = cal.get(Calendar.MINUTE);
 
-        Date chosenDate = cal.getTime();
+        //Date chosenDate = cal.getTime();
+        Calendar myCalendar = new GregorianCalendar(year, month, day);
+        Date chosenDate = myCalendar.getTime();
+
         DateFormat dateFormatUS = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
         formattedDate = dateFormatUS.format(chosenDate);
 
@@ -194,12 +198,17 @@ public class EditUserTaskFragment extends Fragment
     }
 
     @Override
-    public void fillInputFieldsWithData(String title, String description, String dueDate, boolean hasNotification, int repeatMode) {
+    public void fillInputFieldsWithData(String title, String description, String dueDate, int hasNotification, int repeatMode) {
         taskTitleEditText.setText(title);
         taskDescriptionEditText.setText(description);
         dateTimePickerTextView.setText(dueDate);
 
-        notificationSwitch.setChecked(hasNotification);
+        if (hasNotification != 0) {
+            notificationSwitch.setChecked(true);
+        } else {
+            notificationSwitch.setChecked(false);
+        }
+
         repeatModeSpinner.setSelection(repeatMode);
     }
 
